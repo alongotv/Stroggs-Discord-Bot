@@ -3,33 +3,33 @@ package domain
 import constants.KEK_IMAGES_ARRAY
 import data.MessageCreateEventTransmitter
 import dev.kord.core.entity.ReactionEmoji
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import dev.kord.core.event.message.MessageCreateEvent
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 
-class KekMessageHandler(private val messageCreateEventTransmitter: MessageCreateEventTransmitter) {
+class KekMessageHandler(messageCreateEventTransmitter: MessageCreateEventTransmitter) :
+    BaseMessageHandler(messageCreateEventTransmitter) {
 
-    suspend fun setup() {
-        CoroutineScope(Dispatchers.IO).launch {
-            messageCreateEventTransmitter.messagesFlow
-                .filter {
-                    it.message.content.lowercase().contains("kek") || it.message.content.lowercase().contains("кек")
-                }.collect { event ->
-                    val response =
-                        event.message.channel.createMessage("${event.message.author?.username ?: "The user"} has provided us with a fresh KeK!")
+    override val predicate: (MessageCreateEvent) -> Boolean
+        get() = {
+            it.message.content.lowercase().contains("kek") || it.message.content.lowercase().contains("кек")
+        }
 
-                    val kekEmoji = ReactionEmoji.Unicode("\uD83D\uDC79")
+    override suspend fun setup() {
+        scope.launch {
+            messages.collect { event ->
+                val response =
+                    event.message.channel.createMessage("${event.message.author?.username ?: "The user"} has provided us with a fresh KeK!")
 
-                    val kekImageResponse =
-                        event.message.channel.createMessage(KEK_IMAGES_ARRAY.random())
-                    response.addReaction(kekEmoji)
+                val kekEmoji = ReactionEmoji.Unicode("\uD83D\uDC79")
 
-                    delay(10000)
-                    response.delete()
-                    kekImageResponse.delete()
-                }
+                val kekImageResponse =
+                    event.message.channel.createMessage(KEK_IMAGES_ARRAY.random())
+                response.addReaction(kekEmoji)
+                delay(10000)
+                response.delete()
+                kekImageResponse.delete()
+            }
         }
     }
 }
