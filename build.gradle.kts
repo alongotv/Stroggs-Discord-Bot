@@ -35,11 +35,11 @@ tasks.withType<KotlinCompile>() {
 }
 
 application {
-    mainClass.set("BotKt")
+    mainClass.set("ApplicationKt")
 }
 
 tasks.withType<Jar> {
-    manifest.attributes["Main-Class"] = "BotKt"
+    manifest.attributes["Main-Class"] = "ApplicationKt"
     val dependencies = configurations
         .runtimeClasspath
         .get()
