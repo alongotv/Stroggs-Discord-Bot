@@ -15,6 +15,8 @@ repositories {
 }
 
 dependencies {
+    implementation( "org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
     testImplementation(kotlin("test"))
     val kordVersion = "0.8.0-M15"
     implementation("dev.kord:kord-core:$kordVersion")
@@ -34,4 +36,14 @@ tasks.withType<KotlinCompile>() {
 
 application {
     mainClass.set("BotKt")
+}
+
+tasks.withType<Jar> {
+    manifest.attributes["Main-Class"] = "BotKt"
+    val dependencies = configurations
+        .runtimeClasspath
+        .get()
+        .map(::zipTree) // OR .map { zipTree(it) }
+    from(dependencies)
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
