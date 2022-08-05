@@ -10,10 +10,8 @@ import kotlinx.coroutines.delay
 suspend fun main() {
 
     val token = System.getenv("STROGG_DISCORD_BOT_KEY")
-
     val kord = Kord(token)
 
-    val pingPong = ReactionEmoji.Unicode("\uD83D\uDC79")
 
 
     kord.on<MessageCreateEvent> {
@@ -21,11 +19,13 @@ suspend fun main() {
         if (message.content.lowercase().contains("kek") || message.content.lowercase().contains("кек")) {
             val response = message.channel.createMessage("${message.author?.username ?: "Юзер"} прислал нам свежеиспеченного KeKа!")
 
+            val kekEmoji = ReactionEmoji.Unicode("\uD83D\uDC79")
+
             val kekImageResponse =
                 message.channel.createMessage(KEK_IMAGE_LINK)
-            response.addReaction(pingPong)
+            response.addReaction(kekEmoji)
 
-            delay(15000)
+            delay(5000)
             message.delete()
             response.delete()
             kekImageResponse.delete()
