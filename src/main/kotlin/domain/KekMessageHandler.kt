@@ -26,8 +26,7 @@ class KekMessageHandler(private val messageCreateEventTransmitter: MessageCreate
                         event.message.channel.createMessage(KEK_IMAGES_ARRAY.random())
                     response.addReaction(kekEmoji)
 
-                    delay(5000)
-                    event.message.delete()
+                    delay(10000)
                     response.delete()
                     kekImageResponse.delete()
                 }
