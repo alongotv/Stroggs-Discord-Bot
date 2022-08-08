@@ -23,7 +23,7 @@ class KekMessageHandler(messageCreateEventTransmitter: MessageCreateEventTransmi
             messages.collect { event ->
                 val kekEmoji = ReactionEmoji.Unicode("\uD83D\uDC79")
                 val response =
-                    event.message.channel.createMessage("${event.message.author?.username ?: "The user"} has provided us with a fresh KeK!")
+                    event.message.channel.createMessage("${event.message.author?.mention ?: "The user"} has provided us with a fresh KeK!")
                 response.addReaction(kekEmoji)
 
                 val filePath = KEK_IMAGES_PATHS_ARRAY.random()
