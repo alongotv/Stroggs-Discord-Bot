@@ -10,9 +10,9 @@ class AppCompositionRoot private constructor() {
 
     val messageCreateEventTransmitter = MessageCreateEventTransmitter()
 
-    private val qrCodeGenerator = QrCodeGenerator()
-    private val generateQrCodeUseCase = GenerateQrCodeUseCase(qrCodeGenerator)
-    private val removeLocalFileUseCase = RemoveLocalFileUseCase()
+    private val qrCodeGenerator by lazy { QrCodeGenerator() }
+    private val generateQrCodeUseCase by lazy { GenerateQrCodeUseCase(qrCodeGenerator) }
+    private val removeLocalFileUseCase by lazy { RemoveLocalFileUseCase() }
 
     val messageHandlerFactory =
         MessageHandlerFactory(messageCreateEventTransmitter, generateQrCodeUseCase, removeLocalFileUseCase)
