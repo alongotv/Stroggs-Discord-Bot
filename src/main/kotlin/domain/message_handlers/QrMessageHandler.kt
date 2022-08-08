@@ -63,7 +63,7 @@ class QrMessageHandler(
                         val resolvedQrCodeText = resolveQrCodeUseCase(inputStream)
                         channel.createMessage {
                             this.content =
-                                "@${senderUsername}, the bot has found \"$resolvedQrCodeText\" encoded in your picture."
+                                "${senderUsername}, the bot has found \"$resolvedQrCodeText\" encoded in your picture."
                         }
                     } catch (e: Exception) {
                         channel.createMessage("${senderUsername}, the bot was unable to find any QR codes in the provided picture")
