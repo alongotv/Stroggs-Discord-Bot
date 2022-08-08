@@ -14,7 +14,7 @@ class GenerateQrCodeFromTextScenario(
         val qrCodePath = "qrcode-${System.nanoTime()}.png"
 
         generateQrCodeUseCase(contentToEncode, qrCodePath, 300, 300)
-        event.message.channel.createMessage("${event.message.author?.mention} has generated the following qr code:")
+        event.message.channel.createMessage("${event.message.author?.mention} has generated the attached qr code:")
         event.message.channel.createMessage {
             addFile(Path(qrCodePath))
         }
