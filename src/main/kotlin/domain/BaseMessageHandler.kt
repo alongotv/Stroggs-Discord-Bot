@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.filter
 
 abstract class BaseMessageHandler(messageCreateEventTransmitter: MessageCreateEventTransmitter) {
 
-    val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    protected val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     abstract val predicate: (MessageCreateEvent) -> Boolean
     val messages: Flow<MessageCreateEvent> by lazy { messageCreateEventTransmitter.messagesFlow.filter(predicate) }
 
