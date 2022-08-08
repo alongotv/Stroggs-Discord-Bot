@@ -1,10 +1,11 @@
-package domain
+package domain.message_handlers
 
 import constants.KEK_IMAGES_PATHS_ARRAY
 import data.MessageCreateEventTransmitter
 import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.entity.ReactionEmoji
 import dev.kord.core.event.message.MessageCreateEvent
+import domain.BaseMessageHandler
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import utils.FileUtils
