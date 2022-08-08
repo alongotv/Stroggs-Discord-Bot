@@ -16,7 +16,7 @@ import kotlin.coroutines.resumeWithException
 
 
 class QrCodeResolver {
-    suspend fun readQRCode(inputStream: InputStream, hintMap: Map<DecodeHintType, *>?) =
+    suspend fun readQRCode(inputStream: InputStream, hintMap: Map<DecodeHintType, String>) =
         suspendCancellableCoroutine<String> { continuation ->
             try {
                 val binaryBitmap = BinaryBitmap(
