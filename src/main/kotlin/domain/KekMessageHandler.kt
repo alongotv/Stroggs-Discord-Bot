@@ -7,6 +7,7 @@ import dev.kord.core.entity.ReactionEmoji
 import dev.kord.core.event.message.MessageCreateEvent
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import utils.FileUtils
 
 class KekMessageHandler(messageCreateEventTransmitter: MessageCreateEventTransmitter) :
     BaseMessageHandler(messageCreateEventTransmitter) {
@@ -26,7 +27,7 @@ class KekMessageHandler(messageCreateEventTransmitter: MessageCreateEventTransmi
 
                 val filePath = KEK_IMAGES_PATHS_ARRAY.random()
 
-                val file = this::class.java.getResourceAsStream(filePath)
+                val file = FileUtils.getResourceAsStream(filePath)
 
                 val kekImageResponse =
                     event.message.channel.createMessage {
