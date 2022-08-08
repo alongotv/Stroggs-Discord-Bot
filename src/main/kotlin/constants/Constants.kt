@@ -1,8 +1,8 @@
 package constants
 
-const val KEK_IMAGE_LINK = "https://iknowyourmeme.files.wordpress.com/2016/04/14280761127830.jpg"
-const val KEK_IMAGE_LINK_2 = "https://i.kym-cdn.com/entries/icons/original/000/018/784/topkek.png"
-const val KEK_IMAGE_LINK_3 = "https://m.media-amazon.com/images/I/71+P-6RVU8L._SL1400_.jpg"
-const val KEK_IMAGE_LINK_4 = "https://memepedia.ru/wp-content/uploads/2016/08/1453764730_0nmanljhqnw.jpg"
-const val KEK_IMAGE_LINK_5 = "https://i.ytimg.com/vi/c9riazR48T4/maxresdefault.jpg"
-val KEK_IMAGES_ARRAY = arrayOf(KEK_IMAGE_LINK, KEK_IMAGE_LINK_2, KEK_IMAGE_LINK_3, KEK_IMAGE_LINK_4, KEK_IMAGE_LINK_5)
+const val KEK_IMAGE_PATH = "/kek_image_1.png"
+const val KEK_IMAGE_PATH_2 = "/kek_image_2.png"
+const val KEK_IMAGE_PATH_3 = "/kek_image_3.png"
+const val KEK_IMAGE_PATH_4 = "/kek_image_4.png"
+const val KEK_IMAGE_PATH_5 = "/kek_image_5.png"
+val KEK_IMAGES_PATHS_ARRAY = arrayOf(KEK_IMAGE_PATH, KEK_IMAGE_PATH_2, KEK_IMAGE_PATH_3, KEK_IMAGE_PATH_4, KEK_IMAGE_PATH_5)
