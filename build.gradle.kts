@@ -15,10 +15,15 @@ repositories {
 }
 
 dependencies {
+    val kordVersion = "0.8.0-M15"
+    val zxingVersion = "3.5.0"
+
     implementation( "org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
+    implementation("com.google.zxing:core:$zxingVersion")
+    implementation("com.google.zxing:javase:$zxingVersion")
+
     testImplementation(kotlin("test"))
-    val kordVersion = "0.8.0-M15"
     implementation("dev.kord:kord-core:$kordVersion")
     implementation("dev.kord:kord-voice:$kordVersion")
 
