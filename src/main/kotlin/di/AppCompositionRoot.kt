@@ -4,7 +4,7 @@ import data.MessageCreateEventTransmitter
 import domain.MessageHandlerFactory
 import domain.usecase.GenerateQrCodeUseCase
 import domain.usecase.RemoveLocalFileUseCase
-import utils.QrCodeGenerator
+import utils.qr.QrCodeGenerator
 
 class AppCompositionRoot private constructor() {
 

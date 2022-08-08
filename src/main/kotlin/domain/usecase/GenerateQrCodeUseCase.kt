@@ -1,6 +1,6 @@
 package domain.usecase
 
-import utils.QrCodeGenerator
+import utils.qr.QrCodeGenerator
 
 // GenerateQrCodeUseCase is used for generating image files containing qr encoded data
 class GenerateQrCodeUseCase(private val qrCodeGenerator: QrCodeGenerator) {
