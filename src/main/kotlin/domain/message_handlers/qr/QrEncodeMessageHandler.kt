@@ -4,7 +4,6 @@ import data.MessageCreateEventTransmitter
 import dev.kord.core.event.message.MessageCreateEvent
 import domain.BaseMessageHandler
 import domain.scenario.GenerateQrCodeFromTextScenario
-import kotlinx.coroutines.launch
 
 class QrEncodeMessageHandler(
     messageCreateEventTransmitter: MessageCreateEventTransmitter,
@@ -17,26 +16,22 @@ class QrEncodeMessageHandler(
             event.message.content.startsWith("!qrencode")
         }
 
-    override suspend fun setup() {
-        scope.launch {
-            messages.collect { event ->
-                val channel = event.message.channel
-                val messageContent = event.message.content
-                val senderUsername = event.message.author?.mention ?: "User"
+    override suspend fun handle(event: MessageCreateEvent) {
+        val channel = event.message.channel
+        val messageContent = event.message.content
+        val senderUsername = event.message.author?.mention ?: "User"
 
-                if (messageContent.length > 500) {
-                    channel.createMessage("${senderUsername}, the encoded message is too long. Remove unnecessary data.")
-                    return@collect
-                }
+        if (messageContent.length > 500) {
+            channel.createMessage("${senderUsername}, your message is too long. Remove unnecessary data.")
+            return
+        }
 
-                val contentToEncode = messageContent.removePrefix("!qrencode").trim()
-                if (contentToEncode.isBlank()) {
-                    channel.createMessage("${senderUsername}, please enter a message for further encoding.")
-                    return@collect
-                } else {
-                    generateQrCodeFromTextScenario(contentToEncode, event)
-                }
-            }
+        val contentToEncode = messageContent.removePrefix("!qrencode").trim()
+        if (contentToEncode.isBlank()) {
+            channel.createMessage("${senderUsername}, please enter a message for further encoding.")
+            return
+        } else {
+            generateQrCodeFromTextScenario(contentToEncode, event)
         }
     }
 }

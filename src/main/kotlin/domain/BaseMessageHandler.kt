@@ -7,12 +7,21 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.launch
 
 abstract class BaseMessageHandler(messageCreateEventTransmitter: MessageCreateEventTransmitter) {
 
-    protected val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     abstract val predicate: (MessageCreateEvent) -> Boolean
-    val messages: Flow<MessageCreateEvent> by lazy { messageCreateEventTransmitter.messagesFlow.filter(predicate) }
+    private val messages: Flow<MessageCreateEvent> by lazy { messageCreateEventTransmitter.messagesFlow.filter(predicate) }
 
-    abstract suspend fun setup()
+    fun setup() {
+        scope.launch {
+            messages.collect { event ->
+                handle(event)
+            }
+        }
+    }
+
+    protected abstract suspend fun handle(event: MessageCreateEvent)
 }
