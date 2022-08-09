@@ -14,7 +14,7 @@ class MessageHandlerFactory(
     private val resolveQrCodeUseCase: ResolveQrCodeUseCase
 ) {
 
-    suspend fun generateMessageHandlers() {
+    fun generateMessageHandlers() {
         KekMessageHandler(messageCreateEventTransmitter).setup()
         QrEncodeMessageHandler(messageCreateEventTransmitter, generateQrCodeFromTextScenario).setup()
         QrDecodeMessageHandler(messageCreateEventTransmitter, resolveQrCodeUseCase).setup()
