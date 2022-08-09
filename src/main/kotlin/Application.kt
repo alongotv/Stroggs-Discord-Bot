@@ -14,7 +14,7 @@ suspend fun main() {
     compositionRoot.messageHandlerFactory.generateMessageHandlers()
 
     kord.on<MessageCreateEvent> {
-        compositionRoot.messageCreateEventTransmitter.handle(this)
+        compositionRoot.messageCreateEventTransmitter.emit(this)
     }
 
     kord.login {

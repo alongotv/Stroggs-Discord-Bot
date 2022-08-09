@@ -8,7 +8,7 @@ class MessageCreateEventTransmitter {
     private val _messagesFlow = MutableSharedFlow<MessageCreateEvent>()
     val messagesFlow: SharedFlow<MessageCreateEvent> = _messagesFlow
 
-    suspend fun handle(event: MessageCreateEvent, ignoresBots: Boolean = true) {
+    suspend fun emit(event: MessageCreateEvent, ignoresBots: Boolean = true) {
         if (event.message.author?.isBot == true && ignoresBots) return
         _messagesFlow.emit(event)
     }
