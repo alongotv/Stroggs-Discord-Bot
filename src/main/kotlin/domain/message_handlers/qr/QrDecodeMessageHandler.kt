@@ -4,10 +4,9 @@ import data.MessageCreateEventTransmitter
 import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.entity.Attachment
 import dev.kord.core.event.message.MessageCreateEvent
-import domain.BaseMessageHandler
+import domain.message_handlers.BaseMessageHandler
 import domain.usecase.ResolveQrCodeUseCase
 import utils.FileUtils
-import java.net.URL
 
 class QrDecodeMessageHandler(
     messageCreateEventTransmitter: MessageCreateEventTransmitter, private val resolveQrCodeUseCase: ResolveQrCodeUseCase

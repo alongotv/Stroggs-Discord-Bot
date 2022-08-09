@@ -2,7 +2,6 @@ package domain.message_handlers
 
 import data.MessageCreateEventTransmitter
 import dev.kord.core.event.message.MessageCreateEvent
-import domain.BaseMessageHandler
 
 class HelpMessageHandler(messageCreateEventTransmitter: MessageCreateEventTransmitter) : BaseMessageHandler(
     messageCreateEventTransmitter

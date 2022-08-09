@@ -2,7 +2,7 @@ package domain.message_handlers.qr
 
 import data.MessageCreateEventTransmitter
 import dev.kord.core.event.message.MessageCreateEvent
-import domain.BaseMessageHandler
+import domain.message_handlers.BaseMessageHandler
 import domain.scenario.GenerateQrCodeFromTextScenario
 
 class QrEncodeMessageHandler(

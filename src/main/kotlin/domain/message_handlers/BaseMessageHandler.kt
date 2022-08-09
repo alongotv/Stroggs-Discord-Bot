@@ -1,4 +1,4 @@
-package domain
+package domain.message_handlers
 
 import data.MessageCreateEventTransmitter
 import dev.kord.core.event.message.MessageCreateEvent
