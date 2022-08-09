@@ -2,7 +2,8 @@ package domain
 
 import data.MessageCreateEventTransmitter
 import domain.message_handlers.KekMessageHandler
-import domain.message_handlers.QrMessageHandler
+import domain.message_handlers.qr.QrDecodeMessageHandler
+import domain.message_handlers.qr.QrEncodeMessageHandler
 import domain.scenario.GenerateQrCodeFromTextScenario
 import domain.usecase.ResolveQrCodeUseCase
 
@@ -14,6 +15,7 @@ class MessageHandlerFactory(
 
     suspend fun generateMessageHandlers() {
         KekMessageHandler(messageCreateEventTransmitter).setup()
-        QrMessageHandler(messageCreateEventTransmitter, generateQrCodeFromTextScenario, resolveQrCodeUseCase).setup()
+        QrEncodeMessageHandler(messageCreateEventTransmitter, generateQrCodeFromTextScenario).setup()
+        QrDecodeMessageHandler(messageCreateEventTransmitter, resolveQrCodeUseCase).setup()
     }
 }
