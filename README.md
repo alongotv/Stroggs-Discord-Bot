@@ -1,6 +1,4 @@
-# Stroggs-Discord-Bot
-
-##A Discord bot, created just for fun.
+## A Discord bot, created just for fun.
 
 Currently supports generating and decoding QR codes from a picture.
 
