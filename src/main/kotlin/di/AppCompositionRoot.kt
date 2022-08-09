@@ -1,7 +1,7 @@
 package di
 
 import data.MessageCreateEventTransmitter
-import domain.MessageHandlerFactory
+import domain.message_handlers.MessageHandlerFactory
 import domain.scenario.GenerateQrCodeFromTextScenario
 import domain.usecase.GenerateQrCodeUseCase
 import domain.usecase.RemoveLocalFileUseCase
