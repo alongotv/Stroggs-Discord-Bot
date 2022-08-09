@@ -3,21 +3,16 @@ package domain.scenario
 import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.event.message.MessageCreateEvent
 import domain.usecase.GenerateQrCodeUseCase
-import domain.usecase.RemoveLocalFileUseCase
-import kotlin.io.path.Path
+import java.io.ByteArrayInputStream
 
 class GenerateQrCodeFromTextScenario(
     private val generateQrCodeUseCase: GenerateQrCodeUseCase,
-    private val removeLocalQrCodeUseCase: RemoveLocalFileUseCase
 ) {
     suspend operator fun invoke(contentToEncode: String, event: MessageCreateEvent) {
-        val qrCodePath = "qrcode-${System.nanoTime()}.png"
-
-        generateQrCodeUseCase(contentToEncode, qrCodePath, 300, 300)
+        val qrCodeByteArray = generateQrCodeUseCase(contentToEncode, 300, 300)
         event.message.channel.createMessage("${event.message.author?.mention} has generated the attached qr code:")
         event.message.channel.createMessage {
-            addFile(Path(qrCodePath))
+            addFile("qrcode.png", ByteArrayInputStream(qrCodeByteArray))
         }
-        removeLocalQrCodeUseCase(qrCodePath)
     }
 }

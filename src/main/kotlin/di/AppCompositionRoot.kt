@@ -19,8 +19,7 @@ class AppCompositionRoot private constructor() {
     private val removeLocalFileUseCase by lazy { RemoveLocalFileUseCase() }
     private val generateQrCodeFromTextScenario by lazy {
         GenerateQrCodeFromTextScenario(
-            generateQrCodeUseCase,
-            removeLocalFileUseCase
+            generateQrCodeUseCase
         )
     }
 
