@@ -23,7 +23,7 @@ import kotlin.coroutines.suspendCoroutine
 class AudioMessageHandler(val messageCreateEventTransmitter: MessageCreateEventTransmitter) :
     BaseMessageHandler(messageCreateEventTransmitter) {
     override val predicate: (MessageCreateEvent) -> Boolean
-        get() = { it.message.content.startsWith("!play") }
+        get() = { it.message.content.startsWith("!play") || it.message.content.startsWith("!stop")}
 
     // here we keep track of active voice connections
     @OptIn(KordVoice::class)
@@ -37,6 +37,13 @@ class AudioMessageHandler(val messageCreateEventTransmitter: MessageCreateEventT
     @OptIn(KordVoice::class)
     override suspend fun handle(event: MessageCreateEvent) {
         with(event) {
+            if(message.content.startsWith("!stop")) {
+                connections.forEach { (t, u) ->
+                    u.shutdown()
+                }
+                return
+            }
+
             val channelId = member?.getVoiceState()?.channelId ?: return
             val voiceChannel = kord.getChannelOf<VoiceChannel>(id = channelId)!!
 
