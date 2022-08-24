@@ -1,6 +1,6 @@
-package domain.message_handlers
+package com.alongo.discordbot.domain.message_handlers
 
-import data.MessageCreateEventTransmitter
+import com.alongo.discordbot.data.MessageCreateEventTransmitter
 import dev.kord.core.event.message.MessageCreateEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

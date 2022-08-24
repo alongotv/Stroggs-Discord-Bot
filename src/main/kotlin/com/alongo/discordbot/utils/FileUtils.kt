@@ -1,4 +1,4 @@
-package utils
+package com.alongo.discordbot.utils
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine

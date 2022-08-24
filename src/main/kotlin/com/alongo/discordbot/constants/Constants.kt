@@ -1,4 +1,4 @@
-package constants
+package com.alongo.discordbot.constants
 
 const val KEK_IMAGE_PATH = "/kek_images/kek_image_1.png"
 const val KEK_IMAGE_PATH_2 = "/kek_images/kek_image_2.png"

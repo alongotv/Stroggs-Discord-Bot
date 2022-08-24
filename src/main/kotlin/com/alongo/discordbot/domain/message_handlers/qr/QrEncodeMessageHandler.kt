@@ -1,9 +1,9 @@
-package domain.message_handlers.qr
+package com.alongo.discordbot.domain.message_handlers.qr
 
-import data.MessageCreateEventTransmitter
+import com.alongo.discordbot.data.MessageCreateEventTransmitter
 import dev.kord.core.event.message.MessageCreateEvent
-import domain.message_handlers.BaseMessageHandler
-import domain.scenario.GenerateQrCodeFromTextScenario
+import com.alongo.discordbot.domain.message_handlers.BaseMessageHandler
+import com.alongo.discordbot.domain.scenario.GenerateQrCodeFromTextScenario
 
 class QrEncodeMessageHandler(
     messageCreateEventTransmitter: MessageCreateEventTransmitter,
@@ -22,7 +22,7 @@ class QrEncodeMessageHandler(
         val senderUsername = event.message.author?.mention ?: "User"
 
         if (messageContent.length > 500) {
-            channel.createMessage("${senderUsername}, your message is too long. Remove unnecessary data.")
+            channel.createMessage("${senderUsername}, your message is too long. Remove unnecessary com.alongo.discordbot.data.")
             return
         }
 

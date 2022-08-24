@@ -1,7 +1,7 @@
-package domain.usecase
+package com.alongo.discordbot.domain.usecase
 
 import com.google.zxing.EncodeHintType
-import utils.qr.QrCodeGenerator
+import com.alongo.discordbot.utils.qr.QrCodeGenerator
 
 // GenerateQrCodeUseCase is used for generating image files containing QR encoded data
 class GenerateQrCodeUseCase(private val qrCodeGenerator: QrCodeGenerator) {

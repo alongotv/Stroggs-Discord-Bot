@@ -1,12 +1,12 @@
-package domain.message_handlers.qr
+package com.alongo.discordbot.domain.message_handlers.qr
 
-import data.MessageCreateEventTransmitter
+import com.alongo.discordbot.data.MessageCreateEventTransmitter
 import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.entity.Attachment
 import dev.kord.core.event.message.MessageCreateEvent
-import domain.message_handlers.BaseMessageHandler
-import domain.usecase.ResolveQrCodeUseCase
-import utils.FileUtils
+import com.alongo.discordbot.domain.message_handlers.BaseMessageHandler
+import com.alongo.discordbot.domain.usecase.ResolveQrCodeUseCase
+import com.alongo.discordbot.utils.FileUtils
 
 class QrDecodeMessageHandler(
     messageCreateEventTransmitter: MessageCreateEventTransmitter, private val resolveQrCodeUseCase: ResolveQrCodeUseCase

@@ -1,4 +1,4 @@
-package data
+package com.alongo.discordbot.data
 
 import dev.kord.core.event.message.MessageCreateEvent
 import kotlinx.coroutines.flow.MutableSharedFlow

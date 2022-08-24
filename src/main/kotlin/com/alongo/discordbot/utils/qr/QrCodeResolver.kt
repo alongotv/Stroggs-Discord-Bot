@@ -1,4 +1,4 @@
-package utils.qr
+package com.alongo.discordbot.utils.qr
 
 import com.google.zxing.BinaryBitmap
 import com.google.zxing.DecodeHintType

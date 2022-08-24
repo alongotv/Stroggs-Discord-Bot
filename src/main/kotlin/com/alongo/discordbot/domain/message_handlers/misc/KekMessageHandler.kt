@@ -1,13 +1,13 @@
-package domain.message_handlers.misc
+package com.alongo.discordbot.domain.message_handlers.misc
 
-import constants.KEK_IMAGES_PATHS_ARRAY
-import data.MessageCreateEventTransmitter
+import com.alongo.discordbot.constants.KEK_IMAGES_PATHS_ARRAY
+import com.alongo.discordbot.data.MessageCreateEventTransmitter
 import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.entity.ReactionEmoji
 import dev.kord.core.event.message.MessageCreateEvent
-import domain.message_handlers.BaseMessageHandler
+import com.alongo.discordbot.domain.message_handlers.BaseMessageHandler
 import kotlinx.coroutines.delay
-import utils.FileUtils
+import com.alongo.discordbot.utils.FileUtils
 
 class KekMessageHandler(messageCreateEventTransmitter: MessageCreateEventTransmitter) :
     BaseMessageHandler(messageCreateEventTransmitter) {

@@ -1,8 +1,8 @@
-package domain.scenario
+package com.alongo.discordbot.domain.scenario
 
 import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.event.message.MessageCreateEvent
-import domain.usecase.GenerateQrCodeUseCase
+import com.alongo.discordbot.domain.usecase.GenerateQrCodeUseCase
 import java.io.ByteArrayInputStream
 
 class GenerateQrCodeFromTextScenario(
