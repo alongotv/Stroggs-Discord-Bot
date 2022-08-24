@@ -26,12 +26,13 @@ class AudioMessageHandler(val messageCreateEventTransmitter: MessageCreateEventT
         get() = { it.message.content.startsWith("!play") }
 
     // here we keep track of active voice connections
+    @OptIn(KordVoice::class)
     val connections: MutableMap<Snowflake, VoiceConnection> = mutableMapOf()
 
-    val lavaplayerManager = DefaultAudioPlayerManager()
-
-    // to use YouTube, we tell LavaPlayer to use remote sources, like YouTube.
-    val f = AudioSourceManagers.registerRemoteSources(lavaplayerManager)
+    private val lavaPlayerManager = DefaultAudioPlayerManager().apply {
+        // to use YouTube, we tell LavaPlayer to use remote sources, like YouTube.
+        AudioSourceManagers.registerRemoteSources(this)
+    }
 
     @OptIn(KordVoice::class)
     override suspend fun handle(event: MessageCreateEvent) {
@@ -45,12 +46,12 @@ class AudioMessageHandler(val messageCreateEventTransmitter: MessageCreateEventT
             }
 
             // our lavaplayer audio player which will provide frames of audio
-            val player = lavaplayerManager.createPlayer()
+            val player = lavaPlayerManager.createPlayer()
 
             // lavaplayer uses ytsearch: as an identifier to search for YouTube
             val query = "ytsearch: ${message.content.removePrefix("!play")}"
 
-            val track = lavaplayerManager.playTrack(query, player)
+            val track = lavaPlayerManager.playTrack(query, player)
 
             // here we actually connect to the voice channel
 
