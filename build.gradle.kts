@@ -57,11 +57,11 @@ tasks.withType<KotlinCompile> {
 }
 
 application {
-    mainClass.set("com.alongo.discordbot.MainKt")
+    mainClass.set("com.alongo.discordbot.Main")
 }
 
 tasks.withType<Jar> {
-    manifest.attributes["Main-Class"] = "com.alongo.discordbot.MainKt"
+    manifest.attributes["Main-Class"] = "com.alongo.discordbot.Main"
     val dependencies = configurations
         .runtimeClasspath
         .get()
