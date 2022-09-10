@@ -7,6 +7,7 @@ kapt {
 plugins {
     kotlin("jvm") version "1.7.0"
     kotlin("kapt") version "1.7.10"
+    kotlin("plugin.serialization") version "1.7.10"
     application
 }
 
@@ -26,6 +27,12 @@ dependencies {
     val zxingVersion = "3.5.0"
     val lavaPlayerVersion = "1.3.77"
     val daggerVersion = "2.43.2"
+    val ktorVersion= "2.1.1"
+
+    implementation("io.ktor:ktor-client-core:$ktorVersion")
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
+    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+    implementation("io.ktor:ktor-client-logging-jvm:$ktorVersion")
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
