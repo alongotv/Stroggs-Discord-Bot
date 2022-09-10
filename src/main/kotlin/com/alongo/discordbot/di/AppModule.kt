@@ -1,6 +1,8 @@
 package com.alongo.discordbot.di
 
 import com.alongo.discordbot.di.data.MessageCreateEventTransmitterModule
+import com.alongo.discordbot.di.data.datasource.networking.KtorModule
+import com.alongo.discordbot.di.data.datasource.player.LavaPlayerModule
 import com.alongo.discordbot.di.domain.message_handlers.MessageHandlerFactoryModule
 import dagger.Module
 import dagger.Provides
@@ -11,7 +13,7 @@ import kotlinx.coroutines.runBlocking
 import javax.inject.Singleton
 
 @Module(
-    includes = [MessageCreateEventTransmitterModule::class, MessageHandlerFactoryModule::class]
+    includes = [MessageCreateEventTransmitterModule::class, MessageHandlerFactoryModule::class, KtorModule::class, LavaPlayerModule::class]
 )
 class AppModule {
     @Provides
