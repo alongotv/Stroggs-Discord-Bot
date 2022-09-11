@@ -1,24 +1,17 @@
 package com.alongo.discordbot.domain.message_handlers.qr
 
-import com.alongo.discordbot.data.MessageCreateEventTransmitter
-import dev.kord.core.behavior.channel.createMessage
-import dev.kord.core.entity.Attachment
-import dev.kord.core.event.message.MessageCreateEvent
 import com.alongo.discordbot.domain.message_handlers.BaseMessageHandler
 import com.alongo.discordbot.domain.usecase.ResolveQrCodeUseCase
 import com.alongo.discordbot.utils.FileUtils
+import dev.kord.core.behavior.channel.createMessage
+import dev.kord.core.entity.Attachment
+import dev.kord.core.event.message.MessageCreateEvent
 
 class QrDecodeMessageHandler(
-    messageCreateEventTransmitter: MessageCreateEventTransmitter, private val resolveQrCodeUseCase: ResolveQrCodeUseCase
-) : BaseMessageHandler(
-    messageCreateEventTransmitter
-) {
-    override val predicate: (MessageCreateEvent) -> Boolean
-        get() = { event ->
-            event.message.content.startsWith("!qrdecode")
-        }
+    private val resolveQrCodeUseCase: ResolveQrCodeUseCase
+) : BaseMessageHandler() {
 
-    override suspend fun handle(event: MessageCreateEvent) {
+    override suspend fun handle(command: String, event: MessageCreateEvent) {
         val channel = event.message.channel
         val senderUsername = event.message.author?.mention ?: "User"
         val messageAttachments = event.message.attachments
