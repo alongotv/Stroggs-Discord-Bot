@@ -64,11 +64,12 @@ suspend fun DefaultAudioPlayerManager.playTrack(query: String, player: AudioPlay
 
             override fun noMatches() {
                 it.resumeWithException(IllegalArgumentException("No matches to the query"))
-//                TODO()
             }
 
             override fun loadFailed(exception: FriendlyException?) {
-//                TODO()
+                if (exception != null) {
+                    it.resumeWithException(exception)
+                }
             }
         })
     }
