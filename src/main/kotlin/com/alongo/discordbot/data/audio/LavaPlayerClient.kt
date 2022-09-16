@@ -6,12 +6,20 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager
 import com.sedmelluq.discord.lavaplayer.player.event.TrackEndEvent
 import dev.kord.common.entity.Snowflake
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LavaPlayerClient @Inject constructor(
     private val lavaPlayerManager: DefaultAudioPlayerManager
 ) {
+    private val playerScope = CoroutineScope(Dispatchers.IO)
     private val players = HashMap<Snowflake, AudioPlayer>()
+    private val _errors = MutableSharedFlow<Exception>()
+    val errors: SharedFlow<Exception> = _errors
 
     suspend fun playTrack(memberVoiceChannelId: Snowflake, query: String): AudioPlayer {
         if (players[memberVoiceChannelId] == null) {
@@ -24,12 +32,18 @@ class LavaPlayerClient @Inject constructor(
                 is TrackEndEvent -> {
                     stopTrack(memberVoiceChannelId)
                     // Propagate cancellation of keeping voice channel alive
-                    throw EndOfTrackQueueException()
+                    playerScope.launch {
+                        _errors.emit(EndOfTrackQueueException())
+                    }
                 }
             }
         }
 
-        lavaPlayerManager.playTrack(query, player)
+        try {
+            lavaPlayerManager.playTrack(query, player)
+        } catch (e: Exception) {
+            _errors.emit(e)
+        }
         return player
     }
 

@@ -12,6 +12,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import dev.kord.core.behavior.reply
 import dev.kord.core.event.message.MessageCreateEvent
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -26,29 +27,31 @@ class PlayAudioMessageHandler @Inject constructor(
         with(event) {
             val voiceChannelId = member?.getVoiceState()?.channelId ?: return
             val query = "ytsearch: $command"
-
-            val player = try {
-                lavaPlayerClient.playTrack(voiceChannelId, query)
-            } catch (e: EndOfTrackQueueException) {
-                kordAudioConnectionClient.disconnect(guildId!!)
-                null
-            } catch (e: FriendlyException) {
-                message.reply {
-                    content = "There was an error during loading the track."
-                    println(e.message)
+            messageHandlerScope.launch {
+                lavaPlayerClient.errors.collect {
+                    when (it) {
+                        is EndOfTrackQueueException -> {
+                            kordAudioConnectionClient.disconnect(guildId!!)
+                        }
+                        is FriendlyException -> {
+                            message.reply {
+                                content = "There was an error during loading the track."
+                                println(it.message)
+                            }
+                        }
+                        is IllegalArgumentException -> {
+                            message.reply {
+                                content = "Track with provided description not found."
+                            }
+                        }
+                    }
                 }
-                null
-            } catch (e: IllegalArgumentException) {
-                message.reply {
-                    content = "Track with provided description not found."
-                }
-                null
             }
-            if (player != null) {
-                kordAudioConnectionClient.connect(guildId!!, voiceChannelId, player)
-                message.reply {
-                    content = "Playing track: ${player.playingTrack.info.title}"
-                }
+
+            val player = lavaPlayerClient.playTrack(voiceChannelId, query)
+            kordAudioConnectionClient.connect(guildId!!, voiceChannelId, player)
+            message.reply {
+                content = "Playing track: ${player.playingTrack.info.title}"
             }
         }
     }
