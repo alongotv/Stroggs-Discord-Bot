@@ -13,6 +13,7 @@ import dev.kord.core.behavior.reply
 import dev.kord.core.event.message.MessageCreateEvent
 import javax.inject.Inject
 import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 class PlayAudioMessageHandler @Inject constructor(
@@ -24,11 +25,26 @@ class PlayAudioMessageHandler @Inject constructor(
         with(event) {
             val voiceChannelId = member?.getVoiceState()?.channelId ?: return
             val query = "ytsearch: $command"
-            val player = lavaPlayerClient.playTrack(voiceChannelId, query)
-            kordAudioConnectionClient.connect(guildId!!, voiceChannelId, player)
 
-            message.reply {
-                content = "playing track: ${player.playingTrack.info.title}"
+            val player = try {
+                lavaPlayerClient.playTrack(voiceChannelId, query)
+            } catch (e: FriendlyException) {
+                message.reply {
+                    content = "There was an error during loading the track."
+                    println(e.message)
+                }
+                null
+            } catch (e: IllegalArgumentException) {
+                message.reply {
+                    content = "Track with provided description not found."
+                }
+                null
+            }
+            if (player != null) {
+                kordAudioConnectionClient.connect(guildId!!, voiceChannelId, player)
+                message.reply {
+                    content = "Playing track: ${player.playingTrack.info.title}"
+                }
             }
         }
     }
@@ -47,6 +63,7 @@ suspend fun DefaultAudioPlayerManager.playTrack(query: String, player: AudioPlay
             }
 
             override fun noMatches() {
+                it.resumeWithException(IllegalArgumentException("No matches to the query"))
 //                TODO()
             }
 
