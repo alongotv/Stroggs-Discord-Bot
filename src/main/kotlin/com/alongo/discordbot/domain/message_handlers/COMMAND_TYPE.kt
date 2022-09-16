@@ -6,5 +6,7 @@ enum class COMMAND_TYPE(val command: String) {
     QR_ENCODE("!qrencode"),
     QR_DECODE("!qrdecode"),
     HELP("!help"),
-    AUDIO_MESSAGE("!play")
+    AUDIO_PLAY("!play"),
+    AUDIO_PAUSE("!pause"),
+    AUDIO_STOP("!stop")
 }
