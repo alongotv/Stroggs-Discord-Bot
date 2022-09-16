@@ -44,6 +44,9 @@ class PlayAudioMessageHandler @Inject constructor(
                                 content = "Track with provided description not found."
                             }
                         }
+                        else -> {
+
+                        }
                     }
                 }
             }
