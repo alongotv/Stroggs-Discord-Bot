@@ -25,7 +25,7 @@ class PlayAudioMessageHandler @Inject constructor(
             val voiceChannelId = member?.getVoiceState()?.channelId ?: return
             val query = "ytsearch: $command"
             val player = lavaPlayerClient.playTrack(voiceChannelId, query)
-            kordAudioConnectionClient.connect(guildId!!, voiceChannelId, player.provide().data)
+            kordAudioConnectionClient.connect(guildId!!, voiceChannelId, player)
 
             message.reply {
                 content = "playing track: ${player.playingTrack.info.title}"
