@@ -1,6 +1,9 @@
 package com.alongo.discordbot.di
 
 import com.alongo.discordbot.di.data.MessageCreateEventTransmitterModule
+import com.alongo.discordbot.di.data.audio.KordAudioConnectionClientModule
+import com.alongo.discordbot.di.data.audio.LavaPlayerAudioPlayerManagerModule
+import com.alongo.discordbot.di.data.audio.LavaPlayerClientModule
 import com.alongo.discordbot.di.domain.message_handlers.MessageHandlerFactoryModule
 import dagger.Module
 import dagger.Provides
@@ -11,7 +14,7 @@ import kotlinx.coroutines.runBlocking
 import javax.inject.Singleton
 
 @Module(
-    includes = [MessageCreateEventTransmitterModule::class, MessageHandlerFactoryModule::class]
+    includes = [MessageCreateEventTransmitterModule::class, MessageHandlerFactoryModule::class, KordAudioConnectionClientModule::class, LavaPlayerAudioPlayerManagerModule::class, LavaPlayerClientModule::class]
 )
 class AppModule {
     @Provides
@@ -25,4 +28,3 @@ class AppModule {
         return deferred
     }
 }
-
