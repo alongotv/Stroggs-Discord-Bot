@@ -2,6 +2,7 @@ package com.alongo.discordbot.domain.message_handlers.audio
 
 import com.alongo.discordbot.data.audio.KordAudioConnectionClient
 import com.alongo.discordbot.data.audio.LavaPlayerClient
+import com.alongo.discordbot.domain.exceptions.EndOfTrackQueueException
 import com.alongo.discordbot.domain.message_handlers.BaseMessageHandler
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer
@@ -28,6 +29,9 @@ class PlayAudioMessageHandler @Inject constructor(
 
             val player = try {
                 lavaPlayerClient.playTrack(voiceChannelId, query)
+            } catch (e: EndOfTrackQueueException) {
+                kordAudioConnectionClient.disconnect(guildId!!)
+                null
             } catch (e: FriendlyException) {
                 message.reply {
                     content = "There was an error during loading the track."
