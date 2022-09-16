@@ -11,28 +11,28 @@ class LavaPlayerClient @Inject constructor(
 ) {
     private val players = HashMap<Snowflake, AudioPlayer>()
 
-    suspend fun playTrack(memberId: Snowflake, query: String): AudioPlayer {
-        if (players[memberId] == null) {
-            players[memberId] = lavaPlayerManager.createPlayer()
+    suspend fun playTrack(memberVoiceChannelId: Snowflake, query: String): AudioPlayer {
+        if (players[memberVoiceChannelId] == null) {
+            players[memberVoiceChannelId] = lavaPlayerManager.createPlayer()
         }
-        val player = players[memberId]!!
+        val player = players[memberVoiceChannelId]!!
         lavaPlayerManager.playTrack(query, player)
         return player
     }
 
-    fun resumeTrack(memberId: Snowflake) {
-        val player = players[memberId]!!
-        player.playTrack(player.playingTrack)
+    fun resumeTrack(memberVoiceChannelId: Snowflake) {
+        val player = players[memberVoiceChannelId]!!
+        player.isPaused = false
     }
 
-    fun pauseTrack(memberId: Snowflake) {
-        val player = players[memberId]!!
-        player.stopTrack()
+    fun pauseTrack(memberVoiceChannelId: Snowflake) {
+        val player = players[memberVoiceChannelId]!!
+        player.isPaused = true
     }
 
-    fun stopTrack(memberId: Snowflake) {
-        val player = players[memberId]!!
+    fun stopTrack(memberVoiceChannelId: Snowflake) {
+        val player = players[memberVoiceChannelId]!!
         player.stopTrack()
-        players.remove(memberId)
+        players.remove(memberVoiceChannelId)
     }
 }
