@@ -1,6 +1,7 @@
 package com.alongo.discordbot.domain.message_handlers
 
-import com.alongo.discordbot.domain.message_handlers.audio.AudioMessageHandler
+import com.alongo.discordbot.domain.message_handlers.audio.PlayAudioMessageHandler
+import com.alongo.discordbot.domain.message_handlers.audio.StopAudioMessageHandler
 import com.alongo.discordbot.domain.message_handlers.misc.HelpMessageHandler
 import com.alongo.discordbot.domain.message_handlers.misc.KekMessageHandler
 import com.alongo.discordbot.domain.message_handlers.qr.QrDecodeMessageHandler
@@ -12,7 +13,8 @@ class MessageHandlerProvider @Inject constructor(
     private val qrEncodeMessageHandler: QrEncodeMessageHandler,
     private val qrDecodeMessageHandler: QrDecodeMessageHandler,
     private val helpMessageHandler: HelpMessageHandler,
-    private val audioMessageHandler: AudioMessageHandler
+    private val playAudioMessageHandler: PlayAudioMessageHandler,
+    private val stopAudioMessageHandler: StopAudioMessageHandler
 ) {
     fun getHandler(type: COMMAND_TYPE): BaseMessageHandler =
         when (type) {
@@ -20,6 +22,7 @@ class MessageHandlerProvider @Inject constructor(
             COMMAND_TYPE.QR_ENCODE -> qrEncodeMessageHandler
             COMMAND_TYPE.QR_DECODE -> qrDecodeMessageHandler
             COMMAND_TYPE.HELP -> helpMessageHandler
-            COMMAND_TYPE.AUDIO_MESSAGE -> audioMessageHandler
+            COMMAND_TYPE.AUDIO_PLAY -> playAudioMessageHandler
+            COMMAND_TYPE.AUDIO_PAUSE, COMMAND_TYPE.AUDIO_STOP -> stopAudioMessageHandler
         }
 }

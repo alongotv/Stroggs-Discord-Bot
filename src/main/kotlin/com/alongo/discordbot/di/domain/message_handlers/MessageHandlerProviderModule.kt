@@ -1,7 +1,8 @@
 package com.alongo.discordbot.di.domain.message_handlers
 
 import com.alongo.discordbot.domain.message_handlers.MessageHandlerProvider
-import com.alongo.discordbot.domain.message_handlers.audio.AudioMessageHandler
+import com.alongo.discordbot.domain.message_handlers.audio.PlayAudioMessageHandler
+import com.alongo.discordbot.domain.message_handlers.audio.StopAudioMessageHandler
 import com.alongo.discordbot.domain.message_handlers.misc.HelpMessageHandler
 import com.alongo.discordbot.domain.message_handlers.misc.KekMessageHandler
 import com.alongo.discordbot.domain.message_handlers.qr.QrDecodeMessageHandler
@@ -17,12 +18,14 @@ class MessageHandlerProviderModule {
         qrEncodeMessageHandler: QrEncodeMessageHandler,
         qrDecodeMessageHandler: QrDecodeMessageHandler,
         helpMessageHandler: HelpMessageHandler,
-        audioMessageHandler: AudioMessageHandler
+        playAudioMessageHandler: PlayAudioMessageHandler,
+        stopAudioMessageHandler: StopAudioMessageHandler
     ) = MessageHandlerProvider(
         kekMessageHandler,
         qrEncodeMessageHandler,
         qrDecodeMessageHandler,
         helpMessageHandler,
-        audioMessageHandler
+        playAudioMessageHandler,
+        stopAudioMessageHandler
     )
 }
