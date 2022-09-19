@@ -4,12 +4,15 @@ import com.alongo.discordbot.domain.exceptions.EndOfTrackQueueException
 import com.alongo.discordbot.domain.message_handlers.audio.playTrack
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager
+import com.sedmelluq.discord.lavaplayer.player.event.AudioEvent
 import com.sedmelluq.discord.lavaplayer.player.event.TrackEndEvent
 import dev.kord.common.entity.Snowflake
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.channels.trySendBlocking
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,6 +25,7 @@ class LavaPlayerClient @Inject constructor(
     val errors: SharedFlow<Exception> = _errors
 
     suspend fun playTrack(memberVoiceChannelId: Snowflake, query: String): AudioPlayer {
+        playerScope.coroutineContext.cancelChildren()
         val player = if (!players.containsKey(memberVoiceChannelId)) {
             val audioPlayer = lavaPlayerManager.createPlayer()
             players[memberVoiceChannelId] = audioPlayer
@@ -30,17 +34,15 @@ class LavaPlayerClient @Inject constructor(
             players[memberVoiceChannelId]!!
         }
 
-        player.addListener {
-            when (it) {
-                is TrackEndEvent -> {
-                    stopTrack(memberVoiceChannelId)
-                    // Propagate cancellation of keeping voice channel alive
-                    playerScope.launch {
-                        _errors.emit(EndOfTrackQueueException())
-                    }
+        player.listenForEvents()
+            .filter { it is TrackEndEvent }
+            .onEach {
+                stopTrack(memberVoiceChannelId)
+                // Propagate cancellation of keeping voice channel alive
+                playerScope.launch {
+                    _errors.emit(EndOfTrackQueueException())
                 }
-            }
-        }
+            }.launchIn(playerScope)
 
         try {
             lavaPlayerManager.playTrack(query, player)
@@ -67,8 +69,18 @@ class LavaPlayerClient @Inject constructor(
     fun stopTrack(memberVoiceChannelId: Snowflake) {
         val player = players[memberVoiceChannelId]
         player?.let {
-            player.stopTrack()
+            player.destroy()
             players.remove(memberVoiceChannelId)
         }
     }
 }
+
+
+fun AudioPlayer.listenForEvents(): Flow<AudioEvent> =
+    callbackFlow {
+        val listener: (AudioEvent) -> Unit = { audioEvent ->
+            trySendBlocking(audioEvent)
+        }
+        this@listenForEvents.addListener(listener)
+        awaitClose { this@listenForEvents.removeListener(listener) }
+    }
