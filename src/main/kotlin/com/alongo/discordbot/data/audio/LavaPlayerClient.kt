@@ -22,10 +22,13 @@ class LavaPlayerClient @Inject constructor(
     val errors: SharedFlow<Exception> = _errors
 
     suspend fun playTrack(memberVoiceChannelId: Snowflake, query: String): AudioPlayer {
-        if (players[memberVoiceChannelId] == null) {
-            players[memberVoiceChannelId] = lavaPlayerManager.createPlayer()
+        val player = if (!players.containsKey(memberVoiceChannelId)) {
+            val audioPlayer = lavaPlayerManager.createPlayer()
+            players[memberVoiceChannelId] = audioPlayer
+            audioPlayer
+        } else {
+            players[memberVoiceChannelId]!!
         }
-        val player = players[memberVoiceChannelId]!!
 
         player.addListener {
             when (it) {
@@ -48,18 +51,24 @@ class LavaPlayerClient @Inject constructor(
     }
 
     fun resumeTrack(memberVoiceChannelId: Snowflake) {
-        val player = players[memberVoiceChannelId]!!
-        player.isPaused = false
+        val player = players[memberVoiceChannelId]
+        if (player != null) {
+            player.isPaused = false
+        }
     }
 
     fun pauseTrack(memberVoiceChannelId: Snowflake) {
-        val player = players[memberVoiceChannelId]!!
-        player.isPaused = true
+        val player = players[memberVoiceChannelId]
+        if (player != null) {
+            player.isPaused = true
+        }
     }
 
     fun stopTrack(memberVoiceChannelId: Snowflake) {
-        val player = players[memberVoiceChannelId]!!
-        player.stopTrack()
-        players.remove(memberVoiceChannelId)
+        val player = players[memberVoiceChannelId]
+        player?.let {
+            player.stopTrack()
+            players.remove(memberVoiceChannelId)
+        }
     }
 }
