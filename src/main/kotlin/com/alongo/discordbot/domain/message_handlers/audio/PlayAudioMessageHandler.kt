@@ -25,7 +25,7 @@ class PlayAudioMessageHandler @Inject constructor(
 
     override suspend fun handle(command: String, event: MessageCreateEvent) {
         with(event) {
-            val voiceChannelId = member?.getVoiceState()?.channelId ?: return
+            val voiceChannelId = member?.getVoiceStateOrNull()?.channelId ?: return
             val query = "ytsearch: $command"
             messageHandlerScope.launch {
                 lavaPlayerClient.errors.collect {

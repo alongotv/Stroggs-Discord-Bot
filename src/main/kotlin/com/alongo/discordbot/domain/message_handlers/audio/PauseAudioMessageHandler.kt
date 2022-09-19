@@ -8,7 +8,7 @@ import javax.inject.Inject
 class PauseAudioMessageHandler @Inject constructor(private val lavaPlayerClient: LavaPlayerClient) :
     BaseMessageHandler() {
     override suspend fun handle(command: String, event: MessageCreateEvent) {
-        val voiceChannelId = event.member?.getVoiceState()?.channelId ?: return
+        val voiceChannelId = event.member?.getVoiceStateOrNull()?.channelId ?: return
         lavaPlayerClient.pauseTrack(voiceChannelId)
     }
 }
