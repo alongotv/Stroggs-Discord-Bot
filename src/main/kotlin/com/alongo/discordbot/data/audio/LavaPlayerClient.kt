@@ -6,6 +6,7 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEvent
 import com.sedmelluq.discord.lavaplayer.player.event.TrackEndEvent
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason
 import dev.kord.common.entity.Snowflake
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,7 +36,7 @@ class LavaPlayerClient @Inject constructor(
         }
 
         player.listenForEvents()
-            .filter { it is TrackEndEvent }
+            .filter { it is TrackEndEvent && it.endReason == AudioTrackEndReason.FINISHED }
             .onEach {
                 stopTrack(memberVoiceChannelId)
                 // Propagate cancellation of keeping voice channel alive
