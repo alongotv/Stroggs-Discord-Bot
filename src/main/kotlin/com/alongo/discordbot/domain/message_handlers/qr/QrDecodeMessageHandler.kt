@@ -3,7 +3,7 @@ package com.alongo.discordbot.domain.message_handlers.qr
 import com.alongo.discordbot.domain.message_handlers.BaseMessageHandler
 import com.alongo.discordbot.domain.usecase.ResolveQrCodeUseCase
 import com.alongo.discordbot.utils.FileUtils
-import dev.kord.core.behavior.channel.createMessage
+import dev.kord.core.behavior.reply
 import dev.kord.core.entity.Attachment
 import dev.kord.core.event.message.MessageCreateEvent
 
@@ -12,12 +12,13 @@ class QrDecodeMessageHandler(
 ) : BaseMessageHandler() {
 
     override suspend fun handle(command: String, event: MessageCreateEvent) {
-        val channel = event.message.channel
         val senderUsername = event.message.author?.mention ?: "User"
         val messageAttachments = event.message.attachments
 
         if (messageAttachments.size != 1 || !messageAttachments.first().isImage) {
-            channel.createMessage("${senderUsername}, please attach exactly one image file.")
+            event.message.reply {
+                content = "${senderUsername}, please attach exactly one image file."
+            }
             return
         }
 
@@ -26,12 +27,14 @@ class QrDecodeMessageHandler(
 
         try {
             val resolvedQrCodeText = resolveQrCodeUseCase(inputStream)
-            channel.createMessage {
-                this.content =
+            event.message.reply {
+                content =
                     "${senderUsername}, the bot has found \"$resolvedQrCodeText\" encoded in your picture."
             }
         } catch (e: Exception) {
-            channel.createMessage("${senderUsername}, the bot was unable to find any QR codes in the provided picture")
+            event.message.reply {
+                content = "${senderUsername}, the bot was unable to find any QR codes in the provided picture"
+            }
         }
     }
 }
