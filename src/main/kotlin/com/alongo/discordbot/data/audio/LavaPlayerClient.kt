@@ -2,6 +2,7 @@ package com.alongo.discordbot.data.audio
 
 import com.alongo.discordbot.domain.exceptions.EndOfTrackQueueException
 import com.alongo.discordbot.domain.message_handlers.audio.playTrack
+import com.alongo.discordbot.utils.audio.listenForEvents
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEvent
@@ -76,12 +77,3 @@ class LavaPlayerClient @Inject constructor(
     }
 }
 
-
-fun AudioPlayer.listenForEvents(): Flow<AudioEvent> =
-    callbackFlow {
-        val listener: (AudioEvent) -> Unit = { audioEvent ->
-            trySendBlocking(audioEvent)
-        }
-        this@listenForEvents.addListener(listener)
-        awaitClose { this@listenForEvents.removeListener(listener) }
-    }
