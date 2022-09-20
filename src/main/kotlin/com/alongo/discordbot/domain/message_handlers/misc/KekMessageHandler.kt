@@ -10,11 +10,6 @@ import kotlinx.coroutines.delay
 import com.alongo.discordbot.utils.FileUtils
 
 class KekMessageHandler : BaseMessageHandler() {
-     val predicate: (MessageCreateEvent) -> Boolean
-        get() = {
-            it.message.content.lowercase().contains("kek") || it.message.content.lowercase().contains("кек")
-        }
-
     override suspend fun handle(command: String, event: MessageCreateEvent) {
         val kekEmoji = ReactionEmoji.Unicode("\uD83D\uDC79")
         val response =
