@@ -8,6 +8,8 @@ import dev.kord.core.event.message.MessageCreateEvent
 import com.alongo.discordbot.domain.message_handlers.BaseMessageHandler
 import kotlinx.coroutines.delay
 import com.alongo.discordbot.utils.FileUtils
+import io.ktor.client.request.forms.*
+import io.ktor.utils.io.jvm.javaio.*
 
 class KekMessageHandler : BaseMessageHandler() {
     override suspend fun handle(command: String, event: MessageCreateEvent) {
@@ -23,7 +25,7 @@ class KekMessageHandler : BaseMessageHandler() {
         val kekImageResponse =
             event.message.channel.createMessage {
                 if (file != null) {
-                    this.addFile("kek_image.png", file)
+                    this.addFile("kek_image.png", ChannelProvider { file.toByteReadChannel() })
                 } else {
                     this.content = "Error during loading an image. Please refer to bot's administrator"
                 }

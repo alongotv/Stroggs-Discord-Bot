@@ -22,8 +22,8 @@ repositories {
 }
 
 dependencies {
-    val kordVersion = "0.8.0-M16"
-    val zxingVersion = "3.5.0"
+    val kordVersion = "0.8.x-SNAPSHOT"
+    val zxingVersion = "3.5.1"
     val lavaPlayerVersion = "1.3.77"
     val daggerVersion = "2.43.2"
 
