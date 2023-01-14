@@ -20,15 +20,19 @@ class MessageHandlerProvider @Inject constructor(
     private val pauseAudioMessageHandler: PauseAudioMessageHandler,
     private val resumeAudioMessageHandler: ResumeAudioMessageHandler
 ) {
-    fun getHandler(type: COMMAND_TYPE): BaseMessageHandler =
-        when (type) {
-            COMMAND_TYPE.KEK, COMMAND_TYPE.KEK_CYRILLIC -> kekMessageHandler
-            COMMAND_TYPE.QR_ENCODE -> qrEncodeMessageHandler
-            COMMAND_TYPE.QR_DECODE -> qrDecodeMessageHandler
-            COMMAND_TYPE.HELP -> helpMessageHandler
-            COMMAND_TYPE.AUDIO_PLAY -> playAudioMessageHandler
-            COMMAND_TYPE.AUDIO_STOP -> stopAudioMessageHandler
-            COMMAND_TYPE.AUDIO_PAUSE -> pauseAudioMessageHandler
-            COMMAND_TYPE.AUDIO_RESUME -> resumeAudioMessageHandler
-        }
+    private val map: Map<COMMAND_TYPE, BaseMessageHandler> by lazy {
+        mapOf(
+            COMMAND_TYPE.KEK to kekMessageHandler,
+            COMMAND_TYPE.KEK_CYRILLIC to kekMessageHandler,
+            COMMAND_TYPE.QR_ENCODE to qrEncodeMessageHandler,
+            COMMAND_TYPE.QR_DECODE to qrDecodeMessageHandler,
+            COMMAND_TYPE.HELP to helpMessageHandler,
+            COMMAND_TYPE.AUDIO_PLAY to playAudioMessageHandler,
+            COMMAND_TYPE.AUDIO_STOP to stopAudioMessageHandler,
+            COMMAND_TYPE.AUDIO_PAUSE to pauseAudioMessageHandler,
+            COMMAND_TYPE.AUDIO_RESUME to resumeAudioMessageHandler
+        )
+    }
+    fun getHandler(type: COMMAND_TYPE): BaseMessageHandler? = map[type]
+
 }

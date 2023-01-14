@@ -21,7 +21,7 @@ class CreateMessageEventHandler(
                 val commandType = CommandTypeResolver().resolve(msg.toLowerCasePreservingASCIIRules())
                 val commandValue = msg.substringAfter(' ')
 
-                commandType?.let { type -> messageHandlerProvider.getHandler(type).handle(commandValue, event) }
+                commandType?.let { type -> messageHandlerProvider.getHandler(type)?.handle(commandValue, event) }
             }
         }
     }
