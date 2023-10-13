@@ -5,8 +5,8 @@ kapt {
 }
 
 plugins {
-    kotlin("jvm") version "1.7.0"
-    kotlin("kapt") version "1.7.10"
+    kotlin("jvm") version "1.9.10"
+    kotlin("kapt") version "1.9.10"
     application
 }
 
@@ -18,14 +18,14 @@ repositories {
     maven("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven")
     maven("https://oss.sonatype.org/content/repositories/snapshots")
     maven("https://m2.dv8tion.net/releases")
-
+    maven("https://jitpack.io")
 }
 
 dependencies {
-    val kordVersion = "0.8.x-SNAPSHOT"
+    val kordVersion = "0.11.1"
     val zxingVersion = "3.5.1"
-    val lavaPlayerVersion = "1.3.77"
-    val daggerVersion = "2.43.2"
+    val lavaPlayerVersion = "2.0.2"
+    val daggerVersion = "2.48.1"
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
@@ -33,15 +33,10 @@ dependencies {
     implementation("com.google.zxing:javase:$zxingVersion")
 
     testImplementation(kotlin("test"))
-    implementation("dev.kord:kord-core:$kordVersion") {
-        capabilities {
-            requireCapability("dev.kord:core-voice:$kordVersion")
-        }
-    }
+    implementation("dev.kord:kord-core:$kordVersion")
+    implementation("dev.kord:kord-core-voice:$kordVersion")
     implementation("dev.kord:kord-voice:$kordVersion")
-    implementation("com.sedmelluq:lavaplayer:$lavaPlayerVersion")
-
-
+    implementation("dev.arbjerg:lavaplayer:$lavaPlayerVersion")
     implementation("org.slf4j:slf4j-simple:1.7.36")
 
     implementation ("com.google.dagger:dagger:$daggerVersion")
