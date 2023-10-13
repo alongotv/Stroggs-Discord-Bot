@@ -1,6 +1,6 @@
 package com.alongo.discordbot.domain.message_handlers
 
-class CommandTypeResolver {
+object CommandTypeResolver {
     private val commands = COMMAND_TYPE.values()
 
     fun resolve(commandValue: String): COMMAND_TYPE? {

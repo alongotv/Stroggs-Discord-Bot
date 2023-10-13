@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  discord-bot-service:
+    container_name: discord-bot-container
+    build:
+      dockerfile: Dockerfile
+    environment:
+      - STROGG_DISCORD_BOT_KEY=${STROGG_DISCORD_BOT_KEY}
+    restart: unless-stopped
+    ports:
+      - "8080:8080"

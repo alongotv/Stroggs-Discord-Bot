@@ -1,13 +1,26 @@
-name: Docker Image CI
+name: Stroggs Bot Docker Image CI
 
 on:
   push:
     branches: [ "master" ]
     
-jobs:
+jobs:    
   build:
+    env:
+      USER_NAME: ${{ secrets.USER_NAME }}
+      HOST_NAME: ${{ secrets.HOST_NAME }}
+      STROGG_DISCORD_BOT_KEY: ${{ secrets.DISCORD_BOT_KEY }}
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - uses: actions/checkout@v4
+      name: Checkout repository
+    - name: Add Docker Context
+      uses: arwynfr/actions-docker-context@v2
+      with:
+        docker_host: 'ssh://$USER_NAME@$HOST_NAME:22'
+        context_name: 'remote_server_context'
+        ssh_cert: ${{ secrets.SSH_PUBLIC_KEY }}
+        ssh_key: ${{ secrets.SSH_PKEY }}
+        use_context: true
+    - name: Run container in a remote context
+      run: docker compose up -d
