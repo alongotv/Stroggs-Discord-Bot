@@ -1,4 +1,4 @@
-name: Stroggs Bot Docker Image CI
+name: Stroggs Bot Deployment
 
 on:
   push:
