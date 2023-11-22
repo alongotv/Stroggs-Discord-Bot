@@ -2,6 +2,7 @@ package com.alongo.discordbot.di.domain.message_handlers
 
 import com.alongo.discordbot.data.audio.KordAudioConnectionClient
 import com.alongo.discordbot.data.audio.LavaPlayerClient
+import com.alongo.discordbot.data.audio.LavaPlayerQueryWrapper
 import com.alongo.discordbot.domain.message_handlers.audio.PlayAudioMessageHandler
 import com.alongo.discordbot.domain.message_handlers.misc.HelpMessageHandler
 import com.alongo.discordbot.domain.message_handlers.misc.KekMessageHandler
@@ -31,6 +32,7 @@ class MessageHandlersModule {
     @Provides
     fun provideAudioMessageHandler(
         kordAudioConnectionClient: KordAudioConnectionClient,
-        lavaPlayerClient: LavaPlayerClient
-    ) = PlayAudioMessageHandler(kordAudioConnectionClient, lavaPlayerClient)
+        lavaPlayerClient: LavaPlayerClient,
+        lavaPlayerQueryWrapper: LavaPlayerQueryWrapper
+    ) = PlayAudioMessageHandler(kordAudioConnectionClient, lavaPlayerClient, lavaPlayerQueryWrapper)
 }

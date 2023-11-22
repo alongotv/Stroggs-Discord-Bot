@@ -2,6 +2,7 @@ package com.alongo.discordbot.domain.message_handlers.audio
 
 import com.alongo.discordbot.data.audio.KordAudioConnectionClient
 import com.alongo.discordbot.data.audio.LavaPlayerClient
+import com.alongo.discordbot.data.audio.LavaPlayerQueryWrapper
 import com.alongo.discordbot.domain.exceptions.EndOfTrackQueueException
 import com.alongo.discordbot.domain.message_handlers.BaseMessageHandler
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler
@@ -20,13 +21,14 @@ import kotlin.coroutines.suspendCoroutine
 
 class PlayAudioMessageHandler @Inject constructor(
     private val kordAudioConnectionClient: KordAudioConnectionClient,
-    private val lavaPlayerClient: LavaPlayerClient
+    private val lavaPlayerClient: LavaPlayerClient,
+    private val lavaPlayerQueryWrapper: LavaPlayerQueryWrapper
 ) : BaseMessageHandler() {
 
     override suspend fun handle(command: String, event: MessageCreateEvent) {
         with(event) {
             val voiceChannelId = member?.getVoiceStateOrNull()?.channelId ?: return
-            val query = "ytsearch: $command"
+            val query = lavaPlayerQueryWrapper.wrap(command)
             messageHandlerScope.launch {
                 lavaPlayerClient.errors.collect {
                     when (it) {
