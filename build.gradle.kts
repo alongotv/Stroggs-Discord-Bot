@@ -14,13 +14,14 @@ repositories {
     maven("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven")
     maven("https://oss.sonatype.org/content/repositories/snapshots")
     maven("https://m2.dv8tion.net/releases")
+    maven("https://maven.lavalink.dev/snapshots")
     maven("https://jitpack.io")
 }
 
 dependencies {
     val kordVersion = "0.11.1"
     val zxingVersion = "3.5.3"
-    val lavaPlayerVersion = "2.1.1"
+    val lavaPlayerVersion = "0eaeee195f0315b2617587aa3537fa202df07ddc-SNAPSHOT"
     val daggerVersion = "2.51.1"
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
