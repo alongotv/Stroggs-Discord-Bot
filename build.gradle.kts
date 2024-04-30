@@ -1,12 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-kapt {
-    generateStubs = true
-}
-
 plugins {
-    kotlin("jvm") version "1.9.10"
-    kotlin("kapt") version "1.9.10"
+    kotlin("jvm") version "1.9.23"
+    id("com.google.devtools.ksp") version "1.9.23-1.0.20"
     application
 }
 
@@ -24,8 +20,8 @@ repositories {
 dependencies {
     val kordVersion = "0.11.1"
     val zxingVersion = "3.5.3"
-    val lavaPlayerVersion = "2.0.2"
-    val daggerVersion = "2.48.1"
+    val lavaPlayerVersion = "2.1.1"
+    val daggerVersion = "2.51.1"
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
@@ -40,7 +36,7 @@ dependencies {
     implementation("org.slf4j:slf4j-simple:1.7.36")
 
     implementation ("com.google.dagger:dagger:$daggerVersion")
-    kapt("com.google.dagger:dagger-compiler:$daggerVersion")
+    ksp("com.google.dagger:dagger-compiler:$daggerVersion")
 }
 
 tasks.test {
