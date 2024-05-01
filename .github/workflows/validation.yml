@@ -12,7 +12,7 @@ jobs:
         name: Checkout repository
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-      - uses: gradle/gradle-build-action@v2
+      - uses: gradle/actions/setup-gradle@v3
         name: Setup Gradle
       - name: Run detekt with Gradle wrapper
         run: ./gradlew detekt
@@ -23,7 +23,7 @@ jobs:
         name: Checkout repository
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-      - uses: gradle/gradle-build-action@v2
+      - uses: gradle/actions/setup-gradle@v3
         name: Setup Gradle
       - name: Run tests with Gradle wrapper
         run: ./gradlew test
