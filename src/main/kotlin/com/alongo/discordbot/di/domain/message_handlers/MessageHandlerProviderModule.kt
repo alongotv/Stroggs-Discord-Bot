@@ -14,6 +14,7 @@ import dagger.Provides
 
 @Module
 class MessageHandlerProviderModule {
+    @Suppress("LongParameterList")
     @Provides
     fun provideMessageHandlerProvider(
         kekMessageHandler: KekMessageHandler,

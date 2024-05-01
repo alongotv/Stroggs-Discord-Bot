@@ -11,6 +11,7 @@ import com.alongo.discordbot.domain.message_handlers.qr.QrEncodeMessageHandler
 import com.alongo.discordbot.feature.command.Command
 import javax.inject.Inject
 
+@Suppress("LongParameterList")
 class MessageHandlerProvider @Inject constructor(
     private val kekMessageHandler: KekMessageHandler,
     private val qrEncodeMessageHandler: QrEncodeMessageHandler,
