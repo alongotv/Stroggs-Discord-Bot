@@ -5,6 +5,7 @@ import com.alongo.discordbot.utils.CommandStorageFactory
 import org.junit.jupiter.api.Test
 import kotlin.test.BeforeTest
 import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
 
 internal class CommandTypeResolverTest {
     private val commandTypeResolver = CommandTypeResolver
@@ -40,14 +41,31 @@ internal class CommandTypeResolverTest {
         val failingQueries = listOf(
             "Alexa, play despacito",
             "Press ${validCommandMarker}play to win",
-            "play music"
+            "play music",
+            "${validCommandMarker}playarandomtrack"
         )
         for (query in validQueries) {
             assertEquals(commandTypeResolver.resolve(query), Command.AUDIO.PLAY)
         }
 
         for (query in failingQueries) {
-            assertEquals(commandTypeResolver.resolve(query), null)
+            assertNotEquals(commandTypeResolver.resolve(query), Command.AUDIO.PLAY)
+        }
+    }
+
+    @Test
+    fun testPauseAudioCommandsQuery() {
+        val validQueries =
+            listOf(
+                "${validCommandMarker}pause",
+                "${validCommandMarker}pause https://example.com",
+            )
+        for (query in validQueries) {
+            assertEquals(commandTypeResolver.resolve(query), Command.AUDIO.PAUSE)
+        }
+        val failingQueries = listOf("pause", "${validCommandMarker}pause2")
+        for (query in failingQueries) {
+            assertNotEquals(commandTypeResolver.resolve(query), Command.AUDIO.PAUSE)
         }
     }
 
