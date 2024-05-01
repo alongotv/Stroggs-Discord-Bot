@@ -8,7 +8,7 @@ import com.alongo.discordbot.feature.command.qr.QrFeatureCommands
 object CommandStorageFactory {
     fun create(): List<Command> {
         return FunFeatureCommands.get() +
-            QrFeatureCommands.create() +
+            QrFeatureCommands.get() +
             AudioFeatureCommands.get()
     }
 }

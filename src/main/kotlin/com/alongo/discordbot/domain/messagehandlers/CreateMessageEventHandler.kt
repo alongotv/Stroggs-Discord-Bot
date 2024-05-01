@@ -3,6 +3,7 @@ package com.alongo.discordbot.domain.messagehandlers
 import com.alongo.discordbot.data.MessageCreateEventTransmitter
 import com.alongo.discordbot.feature.command.audio.AudioFeatureCommands
 import com.alongo.discordbot.feature.command.misc.FunFeatureCommands
+import com.alongo.discordbot.feature.command.qr.QrFeatureCommands
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -18,7 +19,9 @@ class CreateMessageEventHandler(
 
     init {
         commandTypeResolver.setup(
-            FunFeatureCommands.get() + AudioFeatureCommands.get(),
+            FunFeatureCommands.get() +
+                AudioFeatureCommands.get() +
+                QrFeatureCommands.get(),
             commandMarker = COMMAND_MARKER
         )
     }
