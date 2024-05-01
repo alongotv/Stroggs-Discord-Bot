@@ -2,7 +2,8 @@ name: Stroggs Bot Deployment
 
 on:
   push:
-    branches: [ "master" ]
+    branches:
+      - master
     
 jobs:    
   build:
