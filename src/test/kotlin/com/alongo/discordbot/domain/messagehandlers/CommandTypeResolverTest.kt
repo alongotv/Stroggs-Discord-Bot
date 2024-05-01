@@ -20,15 +20,14 @@ internal class CommandTypeResolverTest {
 
     @Test
     fun testKekCommandsQuery() {
-        val kekQueries = listOf(
+        val validQueries = listOf(
             "Я сходил в турецкий супермаркет и купил себе кек к чаю",
             "Рецепт кекса очень прост: возьмите...",
             "I saw a pukeko on my recent trip to the New Zealand!",
             "A Key Encryption Key or KEK is simply a key that is solely used to encrypt keys."
         )
-        for (query in kekQueries) {
-            assertEquals(commandTypeResolver.resolve(query), Command.KEK)
-        }
+
+        executeTest(validQueries, emptyList(), commandUnderTest = Command.KEK)
     }
 
     @Test
@@ -44,13 +43,8 @@ internal class CommandTypeResolverTest {
             "play music",
             "${validCommandMarker}playarandomtrack"
         )
-        for (query in validQueries) {
-            assertEquals(commandTypeResolver.resolve(query), Command.AUDIO.PLAY)
-        }
 
-        for (query in failingQueries) {
-            assertNotEquals(commandTypeResolver.resolve(query), Command.AUDIO.PLAY)
-        }
+        executeTest(validQueries, failingQueries, Command.AUDIO.PLAY)
     }
 
     @Test
@@ -60,12 +54,33 @@ internal class CommandTypeResolverTest {
                 "${validCommandMarker}pause",
                 "${validCommandMarker}pause https://example.com",
             )
-        for (query in validQueries) {
-            assertEquals(commandTypeResolver.resolve(query), Command.AUDIO.PAUSE)
-        }
+
         val failingQueries = listOf("pause", "${validCommandMarker}pause2")
+        executeTest(validQueries, failingQueries, Command.AUDIO.PAUSE)
+    }
+
+    @Test
+    fun testResumeAudioCommandsQuery() {
+        val validQueries =
+            listOf(
+                "${validCommandMarker}resume",
+                "${validCommandMarker}resume https://example.com",
+            )
+
+        val failingQueries = listOf("resume", "${validCommandMarker}resume2")
+        executeTest(validQueries, failingQueries, Command.AUDIO.RESUME)
+    }
+
+    private fun executeTest(
+        validQueries: List<String>,
+        failingQueries: List<String>,
+        commandUnderTest: Command
+    ) {
+        for (query in validQueries) {
+            assertEquals(commandTypeResolver.resolve(query), commandUnderTest)
+        }
         for (query in failingQueries) {
-            assertNotEquals(commandTypeResolver.resolve(query), Command.AUDIO.PAUSE)
+            assertNotEquals(commandTypeResolver.resolve(query), commandUnderTest)
         }
     }
 
