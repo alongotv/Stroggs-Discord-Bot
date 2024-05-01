@@ -10,7 +10,12 @@ import dagger.Module
 import dagger.Provides
 
 @Module(
-    includes = [QrCodeResolverModule::class, QrCodeGeneratorModule::class, GenerateQrCodeFromTextScenarioModule::class, ResolveQrCodeUseCaseModule::class]
+    includes = [
+        QrCodeResolverModule::class,
+        QrCodeGeneratorModule::class,
+        GenerateQrCodeFromTextScenarioModule::class,
+        ResolveQrCodeUseCaseModule::class
+    ]
 )
 class QrModule {
     @Provides

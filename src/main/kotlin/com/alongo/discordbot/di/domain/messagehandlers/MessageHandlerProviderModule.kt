@@ -1,4 +1,4 @@
-package com.alongo.discordbot.di.domain.message_handlers
+package com.alongo.discordbot.di.domain.messagehandlers
 
 import com.alongo.discordbot.domain.messagehandlers.MessageHandlerProvider
 import com.alongo.discordbot.domain.messagehandlers.audio.PauseAudioMessageHandler
