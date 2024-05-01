@@ -71,6 +71,18 @@ internal class CommandTypeResolverTest {
         executeTest(validQueries, failingQueries, Command.AUDIO.RESUME)
     }
 
+    @Test
+    fun testStopAudioCommandsQuery() {
+        val validQueries =
+            listOf(
+                "${validCommandMarker}stop",
+                "${validCommandMarker}stop https://example.com",
+            )
+
+        val failingQueries = listOf("stop", "${validCommandMarker}stop2")
+        executeTest(validQueries, failingQueries, Command.AUDIO.STOP)
+    }
+
     private fun executeTest(
         validQueries: List<String>,
         failingQueries: List<String>,
