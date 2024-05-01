@@ -18,6 +18,21 @@ repositories {
     maven("https://jitpack.io")
 }
 
+
+val detekt: Configuration by configurations.creating
+
+val detektTask = tasks.register<JavaExec>("detekt") {
+    mainClass.set("io.gitlab.arturbosch.detekt.cli.Main")
+    classpath = detekt
+
+    val input = projectDir
+    val config = "$projectDir/detekt.yml"
+    val exclude = ".*/build/.*,.*/resources/.*"
+    val params = listOf("-i", input, "-c", config, "-ex", exclude)
+
+    args(params)
+}
+
 dependencies {
     val kordVersion = "0.11.1"
     val zxingVersion = "3.5.3"
@@ -36,9 +51,12 @@ dependencies {
     implementation("dev.arbjerg:lavaplayer:$lavaPlayerVersion")
     implementation("org.slf4j:slf4j-simple:1.7.36")
 
-    implementation ("com.google.dagger:dagger:$daggerVersion")
+    implementation("com.google.dagger:dagger:$daggerVersion")
     ksp("com.google.dagger:dagger-compiler:$daggerVersion")
+
+    detekt("io.gitlab.arturbosch.detekt:detekt-cli:1.23.3")
 }
+
 
 tasks.test {
     useJUnitPlatform()
