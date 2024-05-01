@@ -1,6 +1,8 @@
 package com.alongo.discordbot.domain.message_handlers
 
 import com.alongo.discordbot.data.MessageCreateEventTransmitter
+import com.alongo.discordbot.feature.command.audio.AudioFeatureCommands
+import com.alongo.discordbot.feature.command.`fun`.FunFeatureCommands
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -12,11 +14,19 @@ class CreateMessageEventHandler(
     private val messageHandlerProvider: MessageHandlerProvider
 ) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    private val commandTypeResolver = CommandTypeResolver
+
+    init {
+        commandTypeResolver.setup(
+            FunFeatureCommands.get() + AudioFeatureCommands.get(),
+            commandMarker = COMMAND_MARKER
+        )
+    }
 
     fun subscribeToMessageUpdates() {
         messageCreateEventTransmitter.messagesFlow.onEach { event ->
             val msg = event.message.content
-            val commandType = CommandTypeResolver.resolve(msg)
+            val commandType = commandTypeResolver.resolve(msg)
             val commandValue = msg.substringAfter(' ')
             commandType?.let { type ->
                 messageHandlerProvider.getHandler(type)?.handle(commandValue, event)
@@ -24,3 +34,5 @@ class CreateMessageEventHandler(
         }.launchIn(scope)
     }
 }
+
+private const val COMMAND_MARKER = "!"
