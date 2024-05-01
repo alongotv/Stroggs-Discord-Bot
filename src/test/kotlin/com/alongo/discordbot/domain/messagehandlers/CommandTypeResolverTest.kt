@@ -39,7 +39,7 @@ internal class CommandTypeResolverTest {
             )
         val failingQueries = listOf(
             "Alexa, play despacito",
-            "Press !play to win",
+            "Press ${validCommandMarker}play to win",
             "play music"
         )
         for (query in validQueries) {
