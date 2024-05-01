@@ -19,7 +19,9 @@ class ResumeAudioMessageHandler @Inject constructor(
         lavaPlayerClient.resumeTrack(player)
         val resumeEmoji = ReactionEmoji.Unicode("▶️")
         event.message.addReaction(resumeEmoji)
-        delay(3000L)
+        delay(REMOVE_REACTION_DELAY)
         event.message.delete()
     }
 }
+
+private const val REMOVE_REACTION_DELAY = 3000L

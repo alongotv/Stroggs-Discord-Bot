@@ -18,7 +18,9 @@ class PauseAudioMessageHandler @Inject constructor(
         lavaPlayerClient.pauseTrack(player)
         val pauseEmoji = ReactionEmoji.Unicode("⏸️")
         event.message.addReaction(pauseEmoji)
-        delay(3000L)
+        delay(REMOVE_REACTION_DELAY)
         event.message.delete()
     }
 }
+
+private const val REMOVE_REACTION_DELAY = 3000L

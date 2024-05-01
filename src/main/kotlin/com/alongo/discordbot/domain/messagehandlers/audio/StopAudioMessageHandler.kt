@@ -21,7 +21,9 @@ class StopAudioMessageHandler @Inject constructor(
         lavaPlayerClient.stopTrack(player)
         val stopEmoji = ReactionEmoji.Unicode("\uD83D\uDED1")
         event.message.addReaction(stopEmoji)
-        delay(3000L)
+        delay(REMOVE_REACTION_DELAY)
         event.message.delete()
     }
 }
+
+private const val REMOVE_REACTION_DELAY = 3000L
