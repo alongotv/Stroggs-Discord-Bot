@@ -31,6 +31,7 @@ class MessageHandlerProviderModule {
         helpMessageHandler,
         playAudioMessageHandler,
         stopAudioMessageHandler,
-        pauseAudioMessageHandler, resumeAudioMessageHandler
+        pauseAudioMessageHandler,
+        resumeAudioMessageHandler
     )
 }

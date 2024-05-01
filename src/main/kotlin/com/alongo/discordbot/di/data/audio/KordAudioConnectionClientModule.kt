@@ -11,5 +11,7 @@ import javax.inject.Singleton
 class KordAudioConnectionClientModule {
     @Provides
     @Singleton
-    fun provideKordAudioConnectionClient(kord: Deferred<Kord>): KordAudioConnectionClient = KordAudioConnectionClient(kord)
+    fun provideKordAudioConnectionClient(kord: Deferred<Kord>): KordAudioConnectionClient = KordAudioConnectionClient(
+        kord
+    )
 }

@@ -6,6 +6,5 @@ import dev.kord.core.event.message.MessageCreateEvent
 class HelpMessageHandler : BaseMessageHandler() {
 
     override suspend fun handle(command: String, event: MessageCreateEvent) {
-
     }
 }

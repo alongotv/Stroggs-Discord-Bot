@@ -24,7 +24,6 @@ class Application {
     lateinit var createMessageEventHandler: CreateMessageEventHandler
 
     fun start() = runBlocking {
-
         DaggerAppComponent.create().inject(this@Application)
 
         val kord = kord.await()

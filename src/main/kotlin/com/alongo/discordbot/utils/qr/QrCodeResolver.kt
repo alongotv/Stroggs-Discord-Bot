@@ -14,7 +14,6 @@ import javax.imageio.ImageIO
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-
 class QrCodeResolver {
     suspend fun readQRCode(inputStream: InputStream, hintMap: Map<DecodeHintType, String>) =
         suspendCancellableCoroutine<String> { continuation ->

@@ -13,7 +13,7 @@ class StopAudioMessageHandler @Inject constructor(
     private val kordAudioConnectionClient: KordAudioConnectionClient,
     private val lavaPlayerClient: LavaPlayerClient,
     private val playerStorage: PlayerStorage,
-    ) : BaseMessageHandler() {
+) : BaseMessageHandler() {
     override suspend fun handle(command: String, event: MessageCreateEvent) {
         event.guildId?.let { kordAudioConnectionClient.disconnect(it) }
         val voiceChannelId = event.member?.getVoiceStateOrNull()?.channelId ?: return

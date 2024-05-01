@@ -17,7 +17,7 @@ class QrDecodeMessageHandler(
 
         if (messageAttachments.size != 1 || !messageAttachments.first().isImage) {
             event.message.reply {
-                content = "${senderUsername}, please attach exactly one image file."
+                content = "$senderUsername, please attach exactly one image file."
             }
             return
         }
@@ -29,11 +29,11 @@ class QrDecodeMessageHandler(
             val resolvedQrCodeText = resolveQrCodeUseCase(inputStream)
             event.message.reply {
                 content =
-                    "${senderUsername}, the bot has found \"$resolvedQrCodeText\" encoded in your picture."
+                    "$senderUsername, the bot has found \"$resolvedQrCodeText\" encoded in your picture."
             }
         } catch (e: Exception) {
             event.message.reply {
-                content = "${senderUsername}, the bot was unable to find any QR codes in the provided picture"
+                content = "$senderUsername, the bot was unable to find any QR codes in the provided picture"
             }
         }
     }

@@ -72,28 +72,31 @@ class PlayAudioMessageHandler @Inject constructor(
 
 suspend fun DefaultAudioPlayerManager.playTrack(query: String, player: AudioPlayer): AudioTrack {
     val track = suspendCoroutine<AudioTrack> {
-        this.loadItem(query, object : AudioLoadResultHandler {
-            override fun trackLoaded(track: AudioTrack) {
-                it.resume(track)
-            }
+        this.loadItem(
+            query,
+            object : AudioLoadResultHandler {
+                override fun trackLoaded(track: AudioTrack) {
+                    it.resume(track)
+                }
 
-            override fun playlistLoaded(playlist: AudioPlaylist) {
-                it.resume(playlist.tracks.first())
-            }
+                override fun playlistLoaded(playlist: AudioPlaylist) {
+                    it.resume(playlist.tracks.first())
+                }
 
-            override fun noMatches() {
-                it.resumeWithException(IllegalArgumentException("No matches to the query"))
-            }
+                override fun noMatches() {
+                    it.resumeWithException(IllegalArgumentException("No matches to the query"))
+                }
 
-            override fun loadFailed(exception: FriendlyException?) {
-                it.resumeWithException(
-                    exception ?: FriendlyException(
-                        "Unknown cause",
-                        FriendlyException.Severity.SUSPICIOUS, null
+                override fun loadFailed(exception: FriendlyException?) {
+                    it.resumeWithException(
+                        exception ?: FriendlyException(
+                            "Unknown cause",
+                            FriendlyException.Severity.SUSPICIOUS, null
+                        )
                     )
-                )
+                }
             }
-        })
+        )
     }
 
     player.playTrack(track)

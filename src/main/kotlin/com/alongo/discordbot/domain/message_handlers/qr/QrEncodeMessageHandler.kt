@@ -14,13 +14,15 @@ class QrEncodeMessageHandler(
         val senderUsername = event.message.author?.mention ?: "User"
 
         if (messageContent.length > 500) {
-            channel.createMessage("${senderUsername}, your message is too long. Remove unnecessary com.alongo.discordbot.data.")
+            channel.createMessage(
+                "$senderUsername, your message is too long. Remove unnecessary com.alongo.discordbot.data."
+            )
             return
         }
 
         val contentToEncode = messageContent.removePrefix("!qrencode").trim()
         if (contentToEncode.isBlank()) {
-            channel.createMessage("${senderUsername}, please enter a message for further encoding.")
+            channel.createMessage("$senderUsername, please enter a message for further encoding.")
             return
         } else {
             generateQrCodeFromTextScenario(contentToEncode, event)

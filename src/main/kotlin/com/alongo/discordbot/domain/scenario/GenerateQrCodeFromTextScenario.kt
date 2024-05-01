@@ -1,8 +1,8 @@
 package com.alongo.discordbot.domain.scenario
 
+import com.alongo.discordbot.domain.usecase.GenerateQrCodeUseCase
 import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.event.message.MessageCreateEvent
-import com.alongo.discordbot.domain.usecase.GenerateQrCodeUseCase
 import io.ktor.client.request.forms.*
 import io.ktor.utils.io.jvm.javaio.*
 import java.io.ByteArrayInputStream

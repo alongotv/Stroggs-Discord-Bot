@@ -3,8 +3,8 @@ package com.alongo.discordbot.di.domain.message_handlers
 import com.alongo.discordbot.data.audio.KordAudioConnectionClient
 import com.alongo.discordbot.data.audio.LavaPlayerClient
 import com.alongo.discordbot.data.audio.LavaPlayerQueryWrapper
-import com.alongo.discordbot.domain.message_handlers.audio.PlayAudioMessageHandler
 import com.alongo.discordbot.data.datasource.PlayerStorage
+import com.alongo.discordbot.domain.message_handlers.audio.PlayAudioMessageHandler
 import com.alongo.discordbot.domain.message_handlers.misc.HelpMessageHandler
 import com.alongo.discordbot.domain.message_handlers.misc.KekMessageHandler
 import com.alongo.discordbot.domain.message_handlers.qr.QrDecodeMessageHandler
