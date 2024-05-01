@@ -49,16 +49,14 @@ class PlayAudioMessageHandler @Inject constructor(
                 } catch (e: FriendlyException) {
                     message.reply {
                         content = "There was an error during loading the track."
-                        println(e.message)
                     }
+                    println(e.message)
                     disconnect(guildId)
                 } catch (e: IllegalArgumentException) {
+                    println(e.message)
                     message.reply {
                         content = "Track with provided description not found."
                     }
-                    disconnect(guildId)
-                } catch (e: Exception) {
-                    println(e.localizedMessage)
                     disconnect(guildId)
                 }
             }

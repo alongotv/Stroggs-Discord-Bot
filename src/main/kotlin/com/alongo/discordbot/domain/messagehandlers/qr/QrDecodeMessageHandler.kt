@@ -33,6 +33,7 @@ class QrDecodeMessageHandler(
                     "$senderUsername, the bot has found \"$resolvedQrCodeText\" encoded in your picture."
             }
         } catch (e: NotFoundException) {
+            println(e.message)
             event.message.reply {
                 content = "$senderUsername, the bot was unable to find any QR codes in the provided picture"
             }
