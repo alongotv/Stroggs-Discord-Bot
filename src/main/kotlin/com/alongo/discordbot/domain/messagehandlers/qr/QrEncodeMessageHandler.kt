@@ -13,9 +13,9 @@ class QrEncodeMessageHandler(
         val messageContent = event.message.content
         val senderUsername = event.message.author?.mention ?: "User"
 
-        if (messageContent.length > 500) {
+        if (messageContent.length > MAX_MESSAGE_LENGTH_SYMBOLS) {
             channel.createMessage(
-                "$senderUsername, your message is too long. Remove unnecessary com.alongo.discordbot.data."
+                "$senderUsername, your message is too long. Remove unnecessary data."
             )
             return
         }
@@ -29,3 +29,5 @@ class QrEncodeMessageHandler(
         }
     }
 }
+
+private const val MAX_MESSAGE_LENGTH_SYMBOLS = 500

@@ -32,8 +32,10 @@ class KekMessageHandler : BaseMessageHandler() {
                 }
             }
 
-        delay(10000)
+        delay(KEK_RESPONSE_DELETE_DELAY)
         response.delete()
         kekImageResponse.delete()
     }
 }
+
+private const val KEK_RESPONSE_DELETE_DELAY = 10000L
