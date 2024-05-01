@@ -1,7 +1,7 @@
 package com.alongo.discordbot.domain.usecase
 
-import com.google.zxing.DecodeHintType
 import com.alongo.discordbot.utils.qr.QrCodeResolver
+import com.google.zxing.DecodeHintType
 import java.io.InputStream
 
 class ResolveQrCodeUseCase(private val qrCodeResolver: QrCodeResolver) {

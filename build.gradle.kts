@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.9.23"
     id("com.google.devtools.ksp") version "1.9.23-1.0.20"
+    id("io.gitlab.arturbosch.detekt").version("1.23.3")
     application
 }
 
@@ -18,19 +19,8 @@ repositories {
     maven("https://jitpack.io")
 }
 
-
-val detekt: Configuration by configurations.creating
-
-val detektTask = tasks.register<JavaExec>("detekt") {
-    mainClass.set("io.gitlab.arturbosch.detekt.cli.Main")
-    classpath = detekt
-
-    val input = projectDir
-    val config = "$projectDir/detekt.yml"
-    val exclude = ".*/build/.*,.*/resources/.*"
-    val params = listOf("-i", input, "-c", config, "-ex", exclude)
-
-    args(params)
+detekt {
+    autoCorrect = true
 }
 
 dependencies {
@@ -38,6 +28,7 @@ dependencies {
     val zxingVersion = "3.5.3"
     val lavaPlayerVersion = "0eaeee195f0315b2617587aa3537fa202df07ddc-SNAPSHOT"
     val daggerVersion = "2.51.1"
+    val detektVersion = "1.23.3"
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
@@ -54,7 +45,8 @@ dependencies {
     implementation("com.google.dagger:dagger:$daggerVersion")
     ksp("com.google.dagger:dagger-compiler:$daggerVersion")
 
-    detekt("io.gitlab.arturbosch.detekt:detekt-cli:1.23.3")
+    detekt("io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion")
+    detekt("io.gitlab.arturbosch.detekt:detekt-cli:$detektVersion")
 }
 
 

@@ -1,9 +1,9 @@
-package com.alongo.discordbot.di.domain.message_handlers
+package com.alongo.discordbot.di.domain.messagehandlers
 
 import com.alongo.discordbot.data.MessageCreateEventTransmitter
 import com.alongo.discordbot.di.QrModule
-import com.alongo.discordbot.domain.message_handlers.CreateMessageEventHandler
-import com.alongo.discordbot.domain.message_handlers.MessageHandlerProvider
+import com.alongo.discordbot.domain.messagehandlers.CreateMessageEventHandler
+import com.alongo.discordbot.domain.messagehandlers.MessageHandlerProvider
 import dagger.Module
 import dagger.Provides
 

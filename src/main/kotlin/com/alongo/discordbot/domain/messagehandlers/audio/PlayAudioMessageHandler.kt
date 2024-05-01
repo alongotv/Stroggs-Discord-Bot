@@ -1,10 +1,10 @@
-package com.alongo.discordbot.domain.message_handlers.audio
+package com.alongo.discordbot.domain.messagehandlers.audio
 
 import com.alongo.discordbot.data.audio.KordAudioConnectionClient
 import com.alongo.discordbot.data.audio.LavaPlayerClient
 import com.alongo.discordbot.data.audio.LavaPlayerQueryWrapper
 import com.alongo.discordbot.data.datasource.PlayerStorage
-import com.alongo.discordbot.domain.message_handlers.BaseMessageHandler
+import com.alongo.discordbot.domain.messagehandlers.BaseMessageHandler
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager
@@ -49,16 +49,14 @@ class PlayAudioMessageHandler @Inject constructor(
                 } catch (e: FriendlyException) {
                     message.reply {
                         content = "There was an error during loading the track."
-                        println(e.message)
                     }
+                    println(e.message)
                     disconnect(guildId)
                 } catch (e: IllegalArgumentException) {
+                    println(e.message)
                     message.reply {
                         content = "Track with provided description not found."
                     }
-                    disconnect(guildId)
-                } catch (e: Exception) {
-                    println(e.localizedMessage)
                     disconnect(guildId)
                 }
             }
@@ -72,28 +70,31 @@ class PlayAudioMessageHandler @Inject constructor(
 
 suspend fun DefaultAudioPlayerManager.playTrack(query: String, player: AudioPlayer): AudioTrack {
     val track = suspendCoroutine<AudioTrack> {
-        this.loadItem(query, object : AudioLoadResultHandler {
-            override fun trackLoaded(track: AudioTrack) {
-                it.resume(track)
-            }
+        this.loadItem(
+            query,
+            object : AudioLoadResultHandler {
+                override fun trackLoaded(track: AudioTrack) {
+                    it.resume(track)
+                }
 
-            override fun playlistLoaded(playlist: AudioPlaylist) {
-                it.resume(playlist.tracks.first())
-            }
+                override fun playlistLoaded(playlist: AudioPlaylist) {
+                    it.resume(playlist.tracks.first())
+                }
 
-            override fun noMatches() {
-                it.resumeWithException(IllegalArgumentException("No matches to the query"))
-            }
+                override fun noMatches() {
+                    it.resumeWithException(IllegalArgumentException("No matches to the query"))
+                }
 
-            override fun loadFailed(exception: FriendlyException?) {
-                it.resumeWithException(
-                    exception ?: FriendlyException(
-                        "Unknown cause",
-                        FriendlyException.Severity.SUSPICIOUS, null
+                override fun loadFailed(exception: FriendlyException?) {
+                    it.resumeWithException(
+                        exception ?: FriendlyException(
+                            "Unknown cause",
+                            FriendlyException.Severity.SUSPICIOUS, null
+                        )
                     )
-                )
+                }
             }
-        })
+        )
     }
 
     player.playTrack(track)

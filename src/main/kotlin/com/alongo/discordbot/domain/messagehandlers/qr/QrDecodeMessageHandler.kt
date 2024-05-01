@@ -1,8 +1,9 @@
-package com.alongo.discordbot.domain.message_handlers.qr
+package com.alongo.discordbot.domain.messagehandlers.qr
 
-import com.alongo.discordbot.domain.message_handlers.BaseMessageHandler
+import com.alongo.discordbot.domain.messagehandlers.BaseMessageHandler
 import com.alongo.discordbot.domain.usecase.ResolveQrCodeUseCase
 import com.alongo.discordbot.utils.FileUtils
+import com.google.zxing.NotFoundException
 import dev.kord.core.behavior.reply
 import dev.kord.core.entity.Attachment
 import dev.kord.core.event.message.MessageCreateEvent
@@ -17,7 +18,7 @@ class QrDecodeMessageHandler(
 
         if (messageAttachments.size != 1 || !messageAttachments.first().isImage) {
             event.message.reply {
-                content = "${senderUsername}, please attach exactly one image file."
+                content = "$senderUsername, please attach exactly one image file."
             }
             return
         }
@@ -29,11 +30,12 @@ class QrDecodeMessageHandler(
             val resolvedQrCodeText = resolveQrCodeUseCase(inputStream)
             event.message.reply {
                 content =
-                    "${senderUsername}, the bot has found \"$resolvedQrCodeText\" encoded in your picture."
+                    "$senderUsername, the bot has found \"$resolvedQrCodeText\" encoded in your picture."
             }
-        } catch (e: Exception) {
+        } catch (e: NotFoundException) {
+            println(e.message)
             event.message.reply {
-                content = "${senderUsername}, the bot was unable to find any QR codes in the provided picture"
+                content = "$senderUsername, the bot was unable to find any QR codes in the provided picture"
             }
         }
     }

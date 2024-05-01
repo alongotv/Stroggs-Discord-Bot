@@ -1,27 +1,26 @@
-package com.alongo.discordbot.domain.message_handlers.audio
+package com.alongo.discordbot.domain.messagehandlers.audio
 
-import com.alongo.discordbot.data.audio.KordAudioConnectionClient
 import com.alongo.discordbot.data.audio.LavaPlayerClient
 import com.alongo.discordbot.data.datasource.PlayerStorage
-import com.alongo.discordbot.domain.message_handlers.BaseMessageHandler
+import com.alongo.discordbot.domain.messagehandlers.BaseMessageHandler
 import dev.kord.core.entity.ReactionEmoji
 import dev.kord.core.event.message.MessageCreateEvent
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
-class StopAudioMessageHandler @Inject constructor(
-    private val kordAudioConnectionClient: KordAudioConnectionClient,
+class PauseAudioMessageHandler @Inject constructor(
     private val lavaPlayerClient: LavaPlayerClient,
     private val playerStorage: PlayerStorage,
-    ) : BaseMessageHandler() {
+) : BaseMessageHandler() {
     override suspend fun handle(command: String, event: MessageCreateEvent) {
-        event.guildId?.let { kordAudioConnectionClient.disconnect(it) }
         val voiceChannelId = event.member?.getVoiceStateOrNull()?.channelId ?: return
         val player = playerStorage[voiceChannelId]
-        lavaPlayerClient.stopTrack(player)
-        val stopEmoji = ReactionEmoji.Unicode("\uD83D\uDED1")
-        event.message.addReaction(stopEmoji)
-        delay(3000L)
+        lavaPlayerClient.pauseTrack(player)
+        val pauseEmoji = ReactionEmoji.Unicode("⏸️")
+        event.message.addReaction(pauseEmoji)
+        delay(REMOVE_REACTION_DELAY)
         event.message.delete()
     }
 }
+
+private const val REMOVE_REACTION_DELAY = 3000L

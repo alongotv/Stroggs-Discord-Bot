@@ -11,7 +11,6 @@ import java.io.IOException
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-
 class QrCodeGenerator {
 
     /** Generates PNG file containing a QR code from [data] */
@@ -26,7 +25,11 @@ class QrCodeGenerator {
             try {
                 // Encode data to QR code image 2D bit matrix
                 val matrix = MultiFormatWriter().encode(
-                    String(data.toByteArray(charset(charset))), BarcodeFormat.QR_CODE, w, h, hints
+                    String(data.toByteArray(charset(charset))),
+                    BarcodeFormat.QR_CODE,
+                    w,
+                    h,
+                    hints
                 )
                 val baos = ByteArrayOutputStream()
                 MatrixToImageWriter.writeToStream(matrix, "png", baos)

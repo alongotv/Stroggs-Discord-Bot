@@ -1,8 +1,8 @@
-package com.alongo.discordbot.domain.message_handlers.audio
+package com.alongo.discordbot.domain.messagehandlers.audio
 
 import com.alongo.discordbot.data.audio.LavaPlayerClient
 import com.alongo.discordbot.data.datasource.PlayerStorage
-import com.alongo.discordbot.domain.message_handlers.BaseMessageHandler
+import com.alongo.discordbot.domain.messagehandlers.BaseMessageHandler
 import dev.kord.core.entity.ReactionEmoji
 import dev.kord.core.event.message.MessageCreateEvent
 import kotlinx.coroutines.delay
@@ -19,7 +19,9 @@ class ResumeAudioMessageHandler @Inject constructor(
         lavaPlayerClient.resumeTrack(player)
         val resumeEmoji = ReactionEmoji.Unicode("▶️")
         event.message.addReaction(resumeEmoji)
-        delay(3000L)
+        delay(REMOVE_REACTION_DELAY)
         event.message.delete()
     }
 }
+
+private const val REMOVE_REACTION_DELAY = 3000L

@@ -1,10 +1,10 @@
-package com.alongo.discordbot.domain.message_handlers
+package com.alongo.discordbot.domain.messagehandlers
 
 import com.alongo.discordbot.feature.command.Command
 import com.alongo.discordbot.utils.CommandStorageFactory
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import kotlin.test.BeforeTest
+import kotlin.test.assertEquals
 
 internal class CommandTypeResolverTest {
     private val commandTypeResolver = CommandTypeResolver

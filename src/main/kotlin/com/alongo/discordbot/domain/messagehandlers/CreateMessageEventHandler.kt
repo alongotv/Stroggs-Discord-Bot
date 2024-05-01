@@ -1,8 +1,8 @@
-package com.alongo.discordbot.domain.message_handlers
+package com.alongo.discordbot.domain.messagehandlers
 
 import com.alongo.discordbot.data.MessageCreateEventTransmitter
 import com.alongo.discordbot.feature.command.audio.AudioFeatureCommands
-import com.alongo.discordbot.feature.command.`fun`.FunFeatureCommands
+import com.alongo.discordbot.feature.command.misc.FunFeatureCommands
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
