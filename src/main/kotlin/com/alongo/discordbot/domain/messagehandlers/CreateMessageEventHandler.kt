@@ -20,8 +20,8 @@ class CreateMessageEventHandler(
     init {
         commandTypeResolver.setup(
             FunFeatureCommands.get() +
-                    AudioFeatureCommands.get() +
-                    QrFeatureCommands.get(),
+                AudioFeatureCommands.get() +
+                QrFeatureCommands.get(),
             commandMarker = COMMAND_MARKER
         )
     }
