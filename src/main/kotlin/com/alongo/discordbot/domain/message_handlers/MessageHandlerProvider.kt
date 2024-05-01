@@ -8,6 +8,7 @@ import com.alongo.discordbot.domain.message_handlers.misc.HelpMessageHandler
 import com.alongo.discordbot.domain.message_handlers.misc.KekMessageHandler
 import com.alongo.discordbot.domain.message_handlers.qr.QrDecodeMessageHandler
 import com.alongo.discordbot.domain.message_handlers.qr.QrEncodeMessageHandler
+import com.alongo.discordbot.feature.command.Command
 import javax.inject.Inject
 
 class MessageHandlerProvider @Inject constructor(
@@ -20,19 +21,18 @@ class MessageHandlerProvider @Inject constructor(
     private val pauseAudioMessageHandler: PauseAudioMessageHandler,
     private val resumeAudioMessageHandler: ResumeAudioMessageHandler
 ) {
-    private val map: Map<COMMAND_TYPE, BaseMessageHandler> by lazy {
+    private val map: Map<Command, BaseMessageHandler> by lazy {
         mapOf(
-            COMMAND_TYPE.KEK to kekMessageHandler,
-            COMMAND_TYPE.KEK_CYRILLIC to kekMessageHandler,
-            COMMAND_TYPE.QR_ENCODE to qrEncodeMessageHandler,
-            COMMAND_TYPE.QR_DECODE to qrDecodeMessageHandler,
-            COMMAND_TYPE.HELP to helpMessageHandler,
-            COMMAND_TYPE.AUDIO_PLAY to playAudioMessageHandler,
-            COMMAND_TYPE.AUDIO_STOP to stopAudioMessageHandler,
-            COMMAND_TYPE.AUDIO_PAUSE to pauseAudioMessageHandler,
-            COMMAND_TYPE.AUDIO_RESUME to resumeAudioMessageHandler
+            Command.KEK to kekMessageHandler,
+            Command.QR.ENCODE to qrEncodeMessageHandler,
+            Command.QR.DECODE to qrDecodeMessageHandler,
+            Command.HELP to helpMessageHandler,
+            Command.AUDIO.PLAY to playAudioMessageHandler,
+            Command.AUDIO.STOP to stopAudioMessageHandler,
+            Command.AUDIO.PAUSE to pauseAudioMessageHandler,
+            Command.AUDIO.RESUME to resumeAudioMessageHandler,
         )
     }
-    fun getHandler(type: COMMAND_TYPE): BaseMessageHandler? = map[type]
 
+    fun getHandler(type: Command): BaseMessageHandler? = map[type]
 }
