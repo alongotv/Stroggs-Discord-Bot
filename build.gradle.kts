@@ -28,6 +28,7 @@ dependencies {
     val zxingVersion = "3.5.3"
     val lavaPlayerVersion = "0eaeee195f0315b2617587aa3537fa202df07ddc-SNAPSHOT"
     val daggerVersion = "2.51.1"
+    val detektVersion = "1.23.3"
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
@@ -44,7 +45,8 @@ dependencies {
     implementation("com.google.dagger:dagger:$daggerVersion")
     ksp("com.google.dagger:dagger-compiler:$daggerVersion")
 
-    detekt("io.gitlab.arturbosch.detekt:detekt-cli:1.23.3")
+    detekt("io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion")
+    detekt("io.gitlab.arturbosch.detekt:detekt-cli:$detektVersion")
 }
 
 
