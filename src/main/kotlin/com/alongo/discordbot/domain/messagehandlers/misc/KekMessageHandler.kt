@@ -28,7 +28,8 @@ class KekMessageHandler : BaseMessageHandler() {
                 if (file != null) {
                     this.addFile("kek_image.png", ChannelProvider { file.toByteReadChannel() })
                 } else {
-                    this.content = "Error during loading an image. Please refer to bot's administrator"
+                    this.content =
+                        "Error during loading an image. Please refer to bot's administrator"
                 }
             }
 
