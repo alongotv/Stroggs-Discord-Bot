@@ -16,3 +16,14 @@ jobs:
         name: Setup Gradle
       - name: Run detekt with Gradle wrapper
         run: ./gradlew detekt
+  run_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        name: Checkout repository
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: gradle/gradle-build-action@v2
+        name: Setup Gradle
+      - name: Run tests with Gradle wrapper
+        run: ./gradlew test
