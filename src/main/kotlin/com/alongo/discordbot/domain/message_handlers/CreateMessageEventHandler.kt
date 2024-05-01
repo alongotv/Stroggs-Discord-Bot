@@ -1,7 +1,6 @@
 package com.alongo.discordbot.domain.message_handlers
 
 import com.alongo.discordbot.data.MessageCreateEventTransmitter
-import io.ktor.util.toLowerCasePreservingASCIIRules
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -17,7 +16,7 @@ class CreateMessageEventHandler(
     fun subscribeToMessageUpdates() {
         messageCreateEventTransmitter.messagesFlow.onEach { event ->
             val msg = event.message.content
-            val commandType = CommandTypeResolver.resolve(msg.toLowerCasePreservingASCIIRules())
+            val commandType = CommandTypeResolver.resolve(msg)
             val commandValue = msg.substringAfter(' ')
             commandType?.let { type ->
                 messageHandlerProvider.getHandler(type)?.handle(commandValue, event)
