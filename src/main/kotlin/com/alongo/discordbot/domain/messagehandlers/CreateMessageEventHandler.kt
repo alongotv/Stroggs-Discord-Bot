@@ -1,4 +1,4 @@
-package com.alongo.discordbot.domain.message_handlers
+package com.alongo.discordbot.domain.messagehandlers
 
 import com.alongo.discordbot.data.MessageCreateEventTransmitter
 import com.alongo.discordbot.feature.command.audio.AudioFeatureCommands

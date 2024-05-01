@@ -3,8 +3,8 @@ package com.alongo.discordbot.domain.scenario
 import com.alongo.discordbot.domain.usecase.GenerateQrCodeUseCase
 import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.event.message.MessageCreateEvent
-import io.ktor.client.request.forms.*
-import io.ktor.utils.io.jvm.javaio.*
+import io.ktor.client.request.forms.ChannelProvider
+import io.ktor.util.cio.toByteReadChannel
 import java.io.ByteArrayInputStream
 
 class GenerateQrCodeFromTextScenario(

@@ -1,10 +1,10 @@
-package com.alongo.discordbot.domain.message_handlers.audio
+package com.alongo.discordbot.domain.messagehandlers.audio
 
 import com.alongo.discordbot.data.audio.KordAudioConnectionClient
 import com.alongo.discordbot.data.audio.LavaPlayerClient
 import com.alongo.discordbot.data.audio.LavaPlayerQueryWrapper
 import com.alongo.discordbot.data.datasource.PlayerStorage
-import com.alongo.discordbot.domain.message_handlers.BaseMessageHandler
+import com.alongo.discordbot.domain.messagehandlers.BaseMessageHandler
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager

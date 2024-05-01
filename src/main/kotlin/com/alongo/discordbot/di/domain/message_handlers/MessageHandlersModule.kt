@@ -4,11 +4,11 @@ import com.alongo.discordbot.data.audio.KordAudioConnectionClient
 import com.alongo.discordbot.data.audio.LavaPlayerClient
 import com.alongo.discordbot.data.audio.LavaPlayerQueryWrapper
 import com.alongo.discordbot.data.datasource.PlayerStorage
-import com.alongo.discordbot.domain.message_handlers.audio.PlayAudioMessageHandler
-import com.alongo.discordbot.domain.message_handlers.misc.HelpMessageHandler
-import com.alongo.discordbot.domain.message_handlers.misc.KekMessageHandler
-import com.alongo.discordbot.domain.message_handlers.qr.QrDecodeMessageHandler
-import com.alongo.discordbot.domain.message_handlers.qr.QrEncodeMessageHandler
+import com.alongo.discordbot.domain.messagehandlers.audio.PlayAudioMessageHandler
+import com.alongo.discordbot.domain.messagehandlers.misc.HelpMessageHandler
+import com.alongo.discordbot.domain.messagehandlers.misc.KekMessageHandler
+import com.alongo.discordbot.domain.messagehandlers.qr.QrDecodeMessageHandler
+import com.alongo.discordbot.domain.messagehandlers.qr.QrEncodeMessageHandler
 import com.alongo.discordbot.domain.scenario.GenerateQrCodeFromTextScenario
 import com.alongo.discordbot.domain.usecase.ResolveQrCodeUseCase
 import dagger.Module

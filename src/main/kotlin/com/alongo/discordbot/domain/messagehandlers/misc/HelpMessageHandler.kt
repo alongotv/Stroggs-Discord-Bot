@@ -1,6 +1,6 @@
-package com.alongo.discordbot.domain.message_handlers.misc
+package com.alongo.discordbot.domain.messagehandlers.misc
 
-import com.alongo.discordbot.domain.message_handlers.BaseMessageHandler
+import com.alongo.discordbot.domain.messagehandlers.BaseMessageHandler
 import dev.kord.core.event.message.MessageCreateEvent
 
 class HelpMessageHandler : BaseMessageHandler() {

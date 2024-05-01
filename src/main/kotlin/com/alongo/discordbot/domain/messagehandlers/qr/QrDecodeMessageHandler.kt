@@ -1,6 +1,6 @@
-package com.alongo.discordbot.domain.message_handlers.qr
+package com.alongo.discordbot.domain.messagehandlers.qr
 
-import com.alongo.discordbot.domain.message_handlers.BaseMessageHandler
+import com.alongo.discordbot.domain.messagehandlers.BaseMessageHandler
 import com.alongo.discordbot.domain.usecase.ResolveQrCodeUseCase
 import com.alongo.discordbot.utils.FileUtils
 import dev.kord.core.behavior.reply

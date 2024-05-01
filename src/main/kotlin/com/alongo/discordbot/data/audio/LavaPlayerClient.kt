@@ -1,6 +1,6 @@
 package com.alongo.discordbot.data.audio
 
-import com.alongo.discordbot.domain.message_handlers.audio.playTrack
+import com.alongo.discordbot.domain.messagehandlers.audio.playTrack
 import com.alongo.discordbot.utils.audio.listenForEvents
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager

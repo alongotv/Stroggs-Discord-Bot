@@ -1,4 +1,4 @@
-package com.alongo.discordbot.domain.message_handlers
+package com.alongo.discordbot.domain.messagehandlers
 
 enum class COMMAND_TYPE(val command: String) {
     KEK("kek"),

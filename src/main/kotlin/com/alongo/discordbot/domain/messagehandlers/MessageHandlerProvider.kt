@@ -1,13 +1,13 @@
-package com.alongo.discordbot.domain.message_handlers
+package com.alongo.discordbot.domain.messagehandlers
 
-import com.alongo.discordbot.domain.message_handlers.audio.PauseAudioMessageHandler
-import com.alongo.discordbot.domain.message_handlers.audio.PlayAudioMessageHandler
-import com.alongo.discordbot.domain.message_handlers.audio.ResumeAudioMessageHandler
-import com.alongo.discordbot.domain.message_handlers.audio.StopAudioMessageHandler
-import com.alongo.discordbot.domain.message_handlers.misc.HelpMessageHandler
-import com.alongo.discordbot.domain.message_handlers.misc.KekMessageHandler
-import com.alongo.discordbot.domain.message_handlers.qr.QrDecodeMessageHandler
-import com.alongo.discordbot.domain.message_handlers.qr.QrEncodeMessageHandler
+import com.alongo.discordbot.domain.messagehandlers.audio.PauseAudioMessageHandler
+import com.alongo.discordbot.domain.messagehandlers.audio.PlayAudioMessageHandler
+import com.alongo.discordbot.domain.messagehandlers.audio.ResumeAudioMessageHandler
+import com.alongo.discordbot.domain.messagehandlers.audio.StopAudioMessageHandler
+import com.alongo.discordbot.domain.messagehandlers.misc.HelpMessageHandler
+import com.alongo.discordbot.domain.messagehandlers.misc.KekMessageHandler
+import com.alongo.discordbot.domain.messagehandlers.qr.QrDecodeMessageHandler
+import com.alongo.discordbot.domain.messagehandlers.qr.QrEncodeMessageHandler
 import com.alongo.discordbot.feature.command.Command
 import javax.inject.Inject
 

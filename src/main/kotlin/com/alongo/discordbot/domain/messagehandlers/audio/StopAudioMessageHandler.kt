@@ -1,9 +1,9 @@
-package com.alongo.discordbot.domain.message_handlers.audio
+package com.alongo.discordbot.domain.messagehandlers.audio
 
 import com.alongo.discordbot.data.audio.KordAudioConnectionClient
 import com.alongo.discordbot.data.audio.LavaPlayerClient
 import com.alongo.discordbot.data.datasource.PlayerStorage
-import com.alongo.discordbot.domain.message_handlers.BaseMessageHandler
+import com.alongo.discordbot.domain.messagehandlers.BaseMessageHandler
 import dev.kord.core.entity.ReactionEmoji
 import dev.kord.core.event.message.MessageCreateEvent
 import kotlinx.coroutines.delay

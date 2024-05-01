@@ -1,4 +1,4 @@
-package com.alongo.discordbot.domain.message_handlers
+package com.alongo.discordbot.domain.messagehandlers
 
 import dev.kord.core.event.message.MessageCreateEvent
 import kotlinx.coroutines.CoroutineScope
