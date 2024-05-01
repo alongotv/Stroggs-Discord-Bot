@@ -13,4 +13,5 @@ sealed class Command(vararg val keywords: String, val requireCommandMarker: Bool
         object ENCODE: Command("qrencode")
         object DECODE: Command("qrdecode")
     }
+    object HELP: Command("help")
 }
