@@ -13,7 +13,7 @@ class LavaPlayerAudioPlayerManagerModule {
     @Singleton
     fun provideAudioPlayerManager(): DefaultAudioPlayerManager = DefaultAudioPlayerManager().apply {
         // to use YouTube, we tell LavaPlayer to use remote sources, like YouTube.
-        val youtube = YoutubeAudioSourceManager(/* allowSearch = */ true)
+        val youtube = YoutubeAudioSourceManager(true)
         this.registerSourceManager(youtube)
         AudioSourceManagers.registerRemoteSources(this)
     }
