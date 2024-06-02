@@ -15,6 +15,7 @@ repositories {
     maven("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven")
     maven("https://oss.sonatype.org/content/repositories/snapshots")
     maven("https://m2.dv8tion.net/releases")
+    maven("https://maven.lavalink.dev/releases")
     maven("https://maven.lavalink.dev/snapshots")
     maven("https://jitpack.io")
 }
@@ -40,6 +41,7 @@ dependencies {
     implementation("dev.kord:kord-core-voice:$kordVersion")
     implementation("dev.kord:kord-voice:$kordVersion")
     implementation("dev.arbjerg:lavaplayer:$lavaPlayerVersion")
+    implementation("dev.lavalink.youtube:v2:1.3.0")
     implementation("org.slf4j:slf4j-simple:1.7.36")
 
     implementation("com.google.dagger:dagger:$daggerVersion")
