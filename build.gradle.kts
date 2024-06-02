@@ -24,9 +24,9 @@ detekt {
 }
 
 dependencies {
-    val kordVersion = "0.11.1"
+    val kordVersion = "0.14.0"
     val zxingVersion = "3.5.3"
-    val lavaPlayerVersion = "0eaeee195f0315b2617587aa3537fa202df07ddc-SNAPSHOT"
+    val lavaPlayerVersion = "2.1.2"
     val daggerVersion = "2.51.1"
     val detektVersion = "1.23.3"
 
