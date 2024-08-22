@@ -27,7 +27,7 @@ detekt {
 dependencies {
     val kordVersion = "0.14.0"
     val zxingVersion = "3.5.3"
-    val lavaPlayerVersion = "2.1.2"
+    val lavaPlayerVersion = "2.2.1"
     val daggerVersion = "2.51.1"
     val detektVersion = "1.23.3"
 
@@ -41,7 +41,7 @@ dependencies {
     implementation("dev.kord:kord-core-voice:$kordVersion")
     implementation("dev.kord:kord-voice:$kordVersion")
     implementation("dev.arbjerg:lavaplayer:$lavaPlayerVersion")
-    implementation("dev.lavalink.youtube:v2:1.3.0")
+    implementation("dev.lavalink.youtube:v2:1.7.1")
     implementation("org.slf4j:slf4j-simple:1.7.36")
 
     implementation("com.google.dagger:dagger:$daggerVersion")
